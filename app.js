@@ -515,6 +515,10 @@ if ('serviceWorker' in navigator) {
       .register('./service-worker.js')
       .catch((err) => console.warn('Service Worker registration failed:', err));
   });
+
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    window.location.reload();
+  });
 }
 
 // ──────────────────────────────────────────

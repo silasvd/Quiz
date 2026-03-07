@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quiz-pwa-v1';
+const CACHE_NAME = 'quiz-pwa-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -9,14 +9,17 @@ const ASSETS_TO_CACHE = [
   './icons/icon-512.png',
   './quizzes/general-knowledge.json',
   './quizzes/science.json',
-  './quizzes/history.json'
+  './quizzes/history.json',
+  './quizzes/paw-patrol.json',
+  './quizzes/csharp.json'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS_TO_CACHE))
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(ASSETS_TO_CACHE))
+      .then(() => self.skipWaiting())
   );
-  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
