@@ -404,38 +404,38 @@ function drawTrebleClef(svg, bottomY) {
   const topY = ML.top; // 40
   const gY = bottomY - ls; // G line (2nd from bottom) = 76
 
-  // ── Oval body: a proper ellipse centred on the G line ──────────────────
-  // The oval is the most recognisable part of a G-clef; using a real
-  // <ellipse> element guarantees it looks geometrically correct.
+  // ── Oval: centred just above the G line (most recognisable part of a G-clef)
   const ell = document.createElementNS(ns, 'ellipse');
-  ell.setAttribute('cx', '25');
-  ell.setAttribute('cy', String(gY));
-  ell.setAttribute('rx', '9');
-  ell.setAttribute('ry', '11');
+  ell.setAttribute('cx', '22');
+  ell.setAttribute('cy', String(gY - 1));
+  ell.setAttribute('rx', '10');
+  ell.setAttribute('ry', '12');
   ell.setAttribute('fill', 'none');
   ell.setAttribute('stroke', color);
   ell.setAttribute('stroke-width', '2');
   svg.appendChild(ell);
 
-  // ── Stem: top hook → smooth descent → crossing through oval → foot curl ─
-  // The stem is drawn on top of the oval so the "passing-through" effect
-  // (the defining visual characteristic of a G-clef) is clearly visible.
+  // ── Stem: top hook (spiral) → descent → through oval → foot curl ─────────
+  // sx=16 passes cleanly through the left portion of the oval (cx=22, rx=10),
+  // making the characteristic stem-through-loop crossing clearly visible.
+  const sx = 16;
   const p = document.createElementNS(ns, 'path');
   p.setAttribute('d', [
-    // 1. Start above the staff
-    `M 20 ${topY - 14}`,
-    // 2. Top hook: sweeps right-up then curves back down-left
-    `C 29 ${topY - 18}  30 ${topY - 4}  22 ${topY + 4}`,
-    // 3. Smooth leftward lean as the stem descends toward the oval
-    `C 21 ${topY + 18}  20 ${gY - 22}  20 ${gY - 12}`,
-    // 4. Straight through the oval (at x=20 the ellipse spans approx y 67–85)
-    `L 20 ${gY + 12}`,
-    // 5. Continue below the oval, leaning slightly left
-    `C 20 ${bottomY + 4}  19 ${bottomY + 8}  17 ${bottomY + 12}`,
-    // 6. Foot curl: sweep left-down (the characteristic backward-C)
-    `C 13 ${bottomY + 18}  7 ${bottomY + 16}  7 ${bottomY + 10}`,
-    // 7. Foot curl: return right-up, ending inside the descending stroke
-    `C  7 ${bottomY + 4}  14 ${bottomY + 2}  18 ${bottomY + 5}`,
+    // 1. Start 2 staff spaces above the top line
+    `M ${sx} ${topY - 2 * ls}`,
+    // 2. Top hook: sweeps right-up to apex then curves back down-left
+    `C 30 ${topY - 2 * ls - 8}  38 ${topY - 2 * ls - 2}  34 ${topY - 2 * ls + 10}`,
+    `C 30 ${topY - 4}  22 ${topY}  18 ${topY + 8}`,
+    // 3. Smooth descent toward the oval
+    `C ${sx} ${topY + 14}  ${sx} ${topY + 20}  ${sx} ${topY + 26}`,
+    // 4. Straight line through the oval (at x=16 the oval spans y≈65–85)
+    `L ${sx} ${gY + 10}`,
+    // 5. Continue below the oval, leaning left toward the foot
+    `C ${sx} ${gY + 18}  ${sx - 2} ${gY + 24}  ${sx - 4} ${gY + 30}`,
+    // 6. Foot curl: sweep left and down
+    `C ${sx - 8} ${gY + 36}  ${sx - 13} ${gY + 32}  ${sx - 13} ${gY + 24}`,
+    // 7. Foot curl: return right and up
+    `C ${sx - 13} ${gY + 16}  ${sx - 6} ${gY + 12}  ${sx} ${gY + 16}`,
   ].join(' '));
   p.setAttribute('fill', 'none');
   p.setAttribute('stroke', color);
