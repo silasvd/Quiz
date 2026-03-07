@@ -85,7 +85,8 @@ Quiz-Dateien werden im JSON-Format erstellt. Es gibt drei Formate:
 ```
 
 **Melodie-Notation:**
-- Noten: `C`, `D`, `E`, `F`, `G`, `A`, `B` (mit `#` oder `b` für Vorzeichen, z.B. `F#4/4`)
+- Noten: `C`, `D`, `E`, `F`, `G`, `A`, `B` (internationale Schreibweise; `B` = dt. H, `Bb` = dt. B)
+- Vorzeichen: `#` für Kreuz, `b` für Be (z.B. `F#4/4`, `Bb4/4`)
 - Oktave: Zahl nach dem Notennamen (`4` = mittlere Oktave, `5` = eine Oktave höher)
 - Dauer: nach `/` – `1` = Ganze, `2` = Halbe, `4` = Viertel, `8` = Achtel (`.` für punktiert)
 - Pausen: `R/4` = Viertelpause
