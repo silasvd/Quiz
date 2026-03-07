@@ -1,0 +1,136 @@
+{
+  "title": "Paw Patrol",
+  "description": "Teste dein Wissen über die Paw Patrol!",
+  "questions": [
+    {
+      "question": "Wie heißt die Köter-Gruppe, die Notfälle löst?",
+      "options": [
+        "Paw Patrol",
+        "Dog Squad",
+        "Adventure Team",
+        "Rescue Dogs"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "Wer ist der Anführer der Paw Patrol?",
+      "options": [
+        "Everest",
+        "Ryder",
+        "Chase",
+        "Marshall"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welcher Hund ist der Feuer- und Rettungsexperte?",
+      "options": [
+        "Chase",
+        "Rubble",
+        "Marshall",
+        "Skye"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welcher Hund hat die Fähigkeit zu fliegen?",
+      "options": [
+        "Marshall",
+        "Chase",
+        "Skye",
+        "Rocky"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In welcher Stadt leben die Paw Patrol Mitglieder?",
+      "options": [
+        "Adventure City",
+        "Puppy Town",
+        "Adventure Bay",
+        "Dog Island"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was ist Chases Spezialität?",
+      "options": [
+        "Fliegen",
+        "Polizeieinsätze",
+        "Tiefbau",
+        "Wasser-Rettung"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welcher Hund ist spezialisiert auf Schnee und Eis?",
+      "options": [
+        "Rubble",
+        "Marshall",
+        "Everest",
+        "Rocky"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was ist Rockys Spezialgebiet?",
+      "options": [
+        "Recycling und Reparaturen",
+        "Unterwasser-Einsätze",
+        "Tiefbau",
+        "Polizeieinsätze"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "Welcher Hund ist spezialisiert auf Wasser-Rettung?",
+      "options": [
+        "Rocky",
+        "Zuma",
+        "Everest",
+        "Rubble"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welcher Hund ist der Tiefbau-Experte?",
+      "options": [
+        "Marshall",
+        "Rubble",
+        "Chase",
+        "Zuma"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wie heißt das Hauptquartier der Paw Patrol?",
+      "options": [
+        "Adventure Base",
+        "Puppy Station",
+        "Lookout Tower",
+        "The Watchtower"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welcher neuer Hund ist ein Dschungel-Experte?",
+      "options": [
+        "Tracker",
+        "Liberty",
+        "Rocky",
+        "Zuma"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "Welche Farbe hat Ryders Mütze?",
+      "options": [
+        "Blau",
+        "Rot",
+        "Gelb",
+        "Orange"
+      ],
+      "correct": 2
+    }
+  ]
+}
