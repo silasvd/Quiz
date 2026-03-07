@@ -1,5 +1,7 @@
 # Quiz PWA
 
+> 🚀 **[App starten → silasvd.github.io/Quiz](https://silasvd.github.io/Quiz/)**
+
 Eine Progressive Web App für interaktive Quizzes – direkt im Browser spielbar, auch offline.
 
 ## Features

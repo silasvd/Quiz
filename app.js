@@ -222,7 +222,7 @@ const ML = { // Melody Layout constants
   top: 40,         // top margin
   bot: 30,         // bottom margin
   left: 50,        // left margin (clef + time sig)
-  right: 15,       // right margin
+  right: 24,       // right margin
   mw: 160,         // measure width
   noteRx: 6,       // note head horizontal radius
   noteRy: 4.5,     // note head vertical radius
@@ -400,27 +400,42 @@ function drawFlag(svg, x, y, up) {
 function drawTrebleClef(svg, bottomY) {
   const ns = 'http://www.w3.org/2000/svg';
   const color = '#8899aa';
-  const cx = 24;
-  const topY = ML.top;
-  const ls = ML.ls;
+  const ls = ML.ls;    // 12
+  const topY = ML.top; // 40
+  const gY = bottomY - ls; // G line (2nd from bottom) = 76
 
-  // Vertical stem
-  addLine(svg, cx, topY - 6, cx, bottomY + 12, color, 1.8);
+  // ── Oval: centred just above the G line (most recognisable part of a G-clef)
+  const ell = document.createElementNS(ns, 'ellipse');
+  ell.setAttribute('cx', '22');
+  ell.setAttribute('cy', String(gY - 1));
+  ell.setAttribute('rx', '10');
+  ell.setAttribute('ry', '12');
+  ell.setAttribute('fill', 'none');
+  ell.setAttribute('stroke', color);
+  ell.setAttribute('stroke-width', '2');
+  svg.appendChild(ell);
 
-  // Main clef curves
+  // ── Stem: top hook (spiral) → descent → through oval → foot curl ─────────
+  // sx=16 passes cleanly through the left portion of the oval (cx=22, rx=10),
+  // making the characteristic stem-through-loop crossing clearly visible.
+  const sx = 16;
   const p = document.createElementNS(ns, 'path');
   p.setAttribute('d', [
-    // Bottom curl
-    `M ${cx} ${bottomY + 6}`,
-    `C ${cx - 10} ${bottomY + 12} ${cx - 12} ${bottomY - 2} ${cx - 2} ${bottomY - 8}`,
-    // Ascending S-curve through the staff
-    `C ${cx + 10} ${bottomY - 18} ${cx - 8} ${topY + ls * 1.2} ${cx - 4} ${topY + ls * 0.2}`,
-    // Top hook
-    `C ${cx - 2} ${topY - 8} ${cx + 12} ${topY - 6} ${cx + 8} ${topY + ls * 0.8}`,
-    // Descending curve back to G area
-    `C ${cx + 4} ${topY + ls * 2} ${cx - 4} ${topY + ls * 2.6} ${cx} ${topY + ls * 3.2}`,
-    // Small G-line curl
-    `C ${cx + 6} ${topY + ls * 3.8} ${cx + 6} ${topY + ls * 2.8} ${cx} ${topY + ls * 3}`
+    // 1. Start 2 staff spaces above the top line
+    `M ${sx} ${topY - 2 * ls}`,
+    // 2. Top hook: sweeps right-up to apex then curves back down-left
+    `C 30 ${topY - 2 * ls - 8}  38 ${topY - 2 * ls - 2}  34 ${topY - 2 * ls + 10}`,
+    `C 30 ${topY - 4}  22 ${topY}  18 ${topY + 8}`,
+    // 3. Smooth descent toward the oval
+    `C ${sx} ${topY + 14}  ${sx} ${topY + 20}  ${sx} ${topY + 26}`,
+    // 4. Straight line through the oval (at x=16 the oval spans y≈65–85)
+    `L ${sx} ${gY + 10}`,
+    // 5. Continue below the oval, leaning left toward the foot
+    `C ${sx} ${gY + 18}  ${sx - 2} ${gY + 24}  ${sx - 4} ${gY + 30}`,
+    // 6. Foot curl: sweep left and down
+    `C ${sx - 8} ${gY + 36}  ${sx - 13} ${gY + 32}  ${sx - 13} ${gY + 24}`,
+    // 7. Foot curl: return right and up
+    `C ${sx - 13} ${gY + 16}  ${sx - 6} ${gY + 12}  ${sx} ${gY + 16}`,
   ].join(' '));
   p.setAttribute('fill', 'none');
   p.setAttribute('stroke', color);
@@ -468,18 +483,28 @@ function playMelodyAudio(melodyStr, tempo) {
 
 function scheduleTone(freq, start, dur) {
   const ctx = melodyAudioCtx;
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-  osc.type = 'triangle';
-  osc.frequency.value = freq;
-  gain.gain.setValueAtTime(0.001, start);
-  gain.gain.exponentialRampToValueAtTime(0.28, start + Math.min(0.04, dur * 0.15));
-  gain.gain.exponentialRampToValueAtTime(0.001, start + dur);
-  osc.start(start);
-  osc.stop(start + dur + 0.02);
-  melodyScheduledNodes.push(osc);
+  // Glockenspiel-like tone: sine fundamentals + fast-decaying harmonics
+  const partials = [
+    { ratio: 1, peak: 0.28, decay: 0.35 },
+    { ratio: 2, peak: 0.10, decay: 0.12 },
+    { ratio: 3, peak: 0.04, decay: 0.06 },
+  ];
+  const noteLen = Math.min(dur * 0.9, dur - 0.02);
+  for (const h of partials) {
+    const osc = ctx.createOscillator();
+    const gn  = ctx.createGain();
+    osc.connect(gn);
+    gn.connect(ctx.destination);
+    osc.type = 'sine';
+    osc.frequency.value = freq * h.ratio;
+    const decayEnd = start + h.decay + Math.min(noteLen * 0.4, 0.6);
+    gn.gain.setValueAtTime(0.001, start);
+    gn.gain.exponentialRampToValueAtTime(h.peak, start + 0.012);
+    gn.gain.exponentialRampToValueAtTime(0.001, decayEnd);
+    osc.start(start);
+    osc.stop(decayEnd + 0.02);
+    melodyScheduledNodes.push(osc);
+  }
 }
 
 function stopMelodyAudio() {
