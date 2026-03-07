@@ -70,13 +70,6 @@ const REPO_QUIZZES = [
 
 const OPTION_LETTERS = ['A', 'B', 'C', 'D'];
 
-/** Precomputed pool of all results from the 1–10 multiplication table (unique, sorted). */
-const TIMES_TABLE_POOL = [...new Set(
-  Array.from({ length: 10 }, (_, a) =>
-    Array.from({ length: 10 }, (_, b) => (a + 1) * (b + 1))
-  ).flat()
-)].sort((a, b) => a - b);
-
 // ──────────────────────────────────────────
 // Application state
 // ──────────────────────────────────────────
@@ -158,62 +151,6 @@ function shuffle(arr) {
 /** Pick `n` random items from `arr` (without replacement) */
 function pickRandom(arr, n) {
   return shuffle(arr).slice(0, Math.min(n, arr.length));
-}
-
-/**
- * Given a numeric answer, generate an array of 4 option strings (3 wrong + 1 correct,
- * shuffled) and return { options, correct } where correct is the index of the right answer.
- *
- * Strategy:
- *  1. Prefer nearby values from the multiplication-table pool as distractors so they
- *     look plausible to the student (e.g. for 7×8=56: candidates like 54, 63, 48).
- *  2. Fall back to simple ±offset values for answers outside the table (> 100).
- *  3. Always guarantee 3 distinct wrong options.
- */
-function generateMCOptions(answer) {
-  const correct = Number(answer);
-  const candidates = new Set();
-
-  // Prefer multiplication-table neighbours sorted by proximity to the correct answer
-  const tableNeighbours = TIMES_TABLE_POOL
-    .filter((v) => v !== correct)
-    .sort((a, b) => Math.abs(a - correct) - Math.abs(b - correct));
-
-  for (const v of tableNeighbours) {
-    if (candidates.size >= 3) break;
-    candidates.add(v);
-  }
-
-  // Fallback: plain offsets when the table pool is exhausted (e.g. answer > 100)
-  for (const d of [1, 2, 3, 5, 10, -1, -2, -3, -5, -10]) {
-    if (candidates.size >= 3) break;
-    const c = correct + d;
-    if (c > 0 && c !== correct) candidates.add(c);
-  }
-
-  // Final safety net
-  for (let i = 1; candidates.size < 3; i++) {
-    if (i !== correct) candidates.add(i);
-  }
-
-  const wrongOptions = [...candidates].slice(0, 3);
-  const all = shuffle([...wrongOptions, correct]);
-  return { options: all.map(String), correct: all.indexOf(correct) };
-}
-
-/**
- * For questions that only have an 'answer' field (no 'options'), generate Multiple Choice
- * options so they can be rendered in MC mode.  Questions that already have options are
- * returned unchanged.
- */
-function normalizeMCQuestions(questions) {
-  return questions.map((q) => {
-    if (q.answer !== undefined && !q.options) {
-      const mc = generateMCOptions(q.answer);
-      return { question: q.question, options: mc.options, correct: mc.correct, answer: q.answer };
-    }
-    return q;
-  });
 }
 
 function showScreen(name) {
@@ -343,12 +280,13 @@ function validateQuizData(data) {
   data.questions.forEach((q, i) => {
     if (typeof q.question !== 'string') throw new Error(`Frage ${i + 1}: Kein Fragetext.`);
     if (q.answer !== undefined) {
-      // Free-input question: answer field must be a string or number
+      // Free-input (or hybrid) question: answer must be a string or number
       if (typeof q.answer !== 'string' && typeof q.answer !== 'number') {
         throw new Error(`Frage ${i + 1}: 'answer' muss ein Text oder eine Zahl sein.`);
       }
-    } else {
-      // Multiple-choice question: options + correct required
+    }
+    if (q.options !== undefined || q.answer === undefined) {
+      // Multiple-choice question (pure MC or hybrid with both answer + options)
       if (!Array.isArray(q.options) || q.options.length !== 4) {
         throw new Error(`Frage ${i + 1}: Genau 4 Antwortmöglichkeiten erforderlich.`);
       }
@@ -439,11 +377,6 @@ async function startQuiz() {
 
     const count = Math.min(state.questionCount, quizData.questions.length);
     let picked = pickRandom(quizData.questions, count);
-
-    // For MC mode: questions with only an 'answer' field need generated options
-    if (!state.freeInputMode) {
-      picked = normalizeMCQuestions(picked);
-    }
 
     state.questions = picked;
     state.currentIndex = 0;
@@ -673,11 +606,6 @@ restartBtn.addEventListener('click', () => {
 
   const count = Math.min(state.questionCount, quizData.questions.length);
   let picked = pickRandom(quizData.questions, count);
-
-  // Normalize free-input questions to MC if needed
-  if (!state.freeInputMode) {
-    picked = normalizeMCQuestions(picked);
-  }
 
   state.questions = picked;
   showScreen('quiz');
