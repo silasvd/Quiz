@@ -53,6 +53,21 @@
         </div>
         <input type="file" id="file-input" accept=".json" aria-hidden="true" />
 
+        <!-- Input mode (only shown for quizzes that allow free input) -->
+        <div id="input-mode-wrap" style="display:none;">
+          <p class="section-label">Eingabemodus</p>
+          <div class="input-mode-options" role="group" aria-label="Eingabemodus wählen">
+            <label class="input-mode-label">
+              <input type="radio" name="input-mode" value="mc" checked />
+              <span>Multiple Choice</span>
+            </label>
+            <label class="input-mode-label">
+              <input type="radio" name="input-mode" value="free" />
+              <span>Freie Eingabe</span>
+            </label>
+          </div>
+        </div>
+
         <!-- Question count -->
         <p class="section-label">Anzahl der Fragen</p>
         <div class="count-row">
@@ -93,6 +108,20 @@
         <p id="question-text" class="question-text"></p>
 
         <div id="options-list" class="options-list" role="group" aria-label="Antwortmöglichkeiten"></div>
+
+        <!-- Free text input (shown instead of options-list in free-input mode) -->
+        <div id="text-input-wrap" class="text-input-wrap" style="display:none;">
+          <input
+            type="text"
+            id="answer-input"
+            class="answer-input"
+            placeholder="Antwort eingeben …"
+            aria-label="Antwort eingeben"
+            autocomplete="off"
+            inputmode="numeric"
+          />
+          <button id="submit-answer-btn" class="btn-primary">Bestätigen</button>
+        </div>
 
         <!-- Feedback area -->
         <div id="feedback-area" class="feedback-area" style="display:none;" aria-live="assertive">

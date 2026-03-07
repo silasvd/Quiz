@@ -41,10 +41,37 @@ const REPO_QUIZZES = [
     description: 'Grundlagen der Programmiersprache C#',
     icon: '💻',
     file: 'quizzes/csharp.json'
+  },
+  {
+    id: 'mathe-einmaleins',
+    title: 'Kleines Einmaleins',
+    description: 'Alle Multiplikationsaufgaben 1×1 bis 10×10',
+    icon: '✖️',
+    file: 'quizzes/mathe-einmaleins.json',
+    allowFreeInput: true
+  },
+  {
+    id: 'mathe-teilen',
+    title: 'Geteiltaufgaben',
+    description: 'Alle Divisionsaufgaben des kleinen Einmaleins',
+    icon: '➗',
+    file: 'quizzes/mathe-teilen.json',
+    allowFreeInput: true
+  },
+  {
+    id: 'mathe-gemischt',
+    title: 'Gemischte Matheaufgaben',
+    description: 'Multiplikation und Division gemischt',
+    icon: '🔢',
+    file: 'quizzes/mathe-gemischt.json',
+    allowFreeInput: true
   }
 ];
 
 const OPTION_LETTERS = ['A', 'B', 'C', 'D'];
+
+/** Offsets applied to the correct answer to generate plausible wrong options */
+const MC_OFFSETS = [1, 2, 3, 5, 10, -1, -2, -3, -5, -10];
 
 // ──────────────────────────────────────────
 // Application state
@@ -58,7 +85,8 @@ let state = {
   currentIndex: 0,
   correctCount: 0,
   wrongCount: 0,
-  answered: false
+  answered: false,
+  freeInputMode: false       // true = free text input instead of Multiple Choice
 };
 
 // ──────────────────────────────────────────
@@ -79,6 +107,7 @@ const questionCountInput = document.getElementById('question-count');
 const countHint = document.getElementById('count-hint');
 const startBtn = document.getElementById('start-btn');
 const errorBanner = document.getElementById('error-banner');
+const inputModeWrap = document.getElementById('input-mode-wrap');
 
 // Quiz screen
 const quizTitleBar = document.getElementById('quiz-title-bar');
@@ -92,6 +121,9 @@ const feedbackIcon = document.getElementById('feedback-icon');
 const feedbackStrong = document.getElementById('feedback-strong');
 const feedbackCorrectAnswer = document.getElementById('feedback-correct-answer');
 const nextBtn = document.getElementById('next-btn');
+const textInputWrap = document.getElementById('text-input-wrap');
+const answerInput = document.getElementById('answer-input');
+const submitAnswerBtn = document.getElementById('submit-answer-btn');
 
 // Result screen
 const resultEmoji = document.getElementById('result-emoji');
@@ -124,7 +156,44 @@ function pickRandom(arr, n) {
   return shuffle(arr).slice(0, Math.min(n, arr.length));
 }
 
-function showScreen(name) {
+/**
+ * Given a numeric answer, generate an array of 4 option strings (3 wrong + 1 correct,
+ * shuffled) and return { options, correct } where correct is the index of the right answer.
+ */
+function generateMCOptions(answer) {
+  const correct = Number(answer);
+  const candidates = new Set();
+
+  // Nearby offsets produce plausible wrong answers
+  for (const d of MC_OFFSETS) {
+    const c = correct + d;
+    if (c > 0 && c !== correct) candidates.add(c);
+  }
+
+  // Fallback: fill with small positive integers if needed
+  for (let i = 1; candidates.size < 3; i++) {
+    if (i !== correct) candidates.add(i);
+  }
+
+  const wrongOptions = [...candidates].slice(0, 3);
+  const all = shuffle([...wrongOptions, correct]);
+  return { options: all.map(String), correct: all.indexOf(correct) };
+}
+
+/**
+ * For questions that only have an 'answer' field (no 'options'), generate Multiple Choice
+ * options so they can be rendered in MC mode.  Questions that already have options are
+ * returned unchanged.
+ */
+function normalizeMCQuestions(questions) {
+  return questions.map((q) => {
+    if (q.answer !== undefined && !q.options) {
+      const mc = generateMCOptions(q.answer);
+      return { question: q.question, options: mc.options, correct: mc.correct, answer: q.answer };
+    }
+    return q;
+  });
+}
   Object.values(screens).forEach((s) => s.classList.remove('active'));
   screens[name].classList.add('active');
 }
@@ -175,6 +244,9 @@ function selectRepoQuiz(index) {
   hideError();
   updateCountHint();
   startBtn.disabled = false;
+
+  const allowFreeInput = !!REPO_QUIZZES[index].allowFreeInput;
+  inputModeWrap.style.display = allowFreeInput ? 'block' : 'none';
 }
 
 // ──────────────────────────────────────────
@@ -231,6 +303,8 @@ function handleFileLoad(file) {
       hideError();
       updateCountHint();
       startBtn.disabled = false;
+
+      inputModeWrap.style.display = data.allowFreeInput ? 'block' : 'none';
     } catch (err) {
       showError(`Fehler beim Laden der Datei: ${err.message}`);
     }
@@ -245,11 +319,19 @@ function validateQuizData(data) {
   }
   data.questions.forEach((q, i) => {
     if (typeof q.question !== 'string') throw new Error(`Frage ${i + 1}: Kein Fragetext.`);
-    if (!Array.isArray(q.options) || q.options.length !== 4) {
-      throw new Error(`Frage ${i + 1}: Genau 4 Antwortmöglichkeiten erforderlich.`);
-    }
-    if (typeof q.correct !== 'number' || q.correct < 0 || q.correct > 3) {
-      throw new Error(`Frage ${i + 1}: 'correct' muss 0–3 sein.`);
+    if (q.answer !== undefined) {
+      // Free-input question: answer field must be a string or number
+      if (typeof q.answer !== 'string' && typeof q.answer !== 'number') {
+        throw new Error(`Frage ${i + 1}: 'answer' muss ein Text oder eine Zahl sein.`);
+      }
+    } else {
+      // Multiple-choice question: options + correct required
+      if (!Array.isArray(q.options) || q.options.length !== 4) {
+        throw new Error(`Frage ${i + 1}: Genau 4 Antwortmöglichkeiten erforderlich.`);
+      }
+      if (typeof q.correct !== 'number' || q.correct < 0 || q.correct > 3) {
+        throw new Error(`Frage ${i + 1}: 'correct' muss 0–3 sein.`);
+      }
     }
   });
 }
@@ -326,8 +408,21 @@ async function startQuiz() {
 
     validateQuizData(quizData);
 
+    // Determine input mode from the radio buttons (only visible for allowFreeInput quizzes)
+    const selectedMode = document.querySelector('input[name="input-mode"]:checked');
+    state.freeInputMode = quizData.allowFreeInput
+      ? (selectedMode ? selectedMode.value === 'free' : false)
+      : false;
+
     const count = Math.min(state.questionCount, quizData.questions.length);
-    state.questions = pickRandom(quizData.questions, count);
+    let picked = pickRandom(quizData.questions, count);
+
+    // For MC mode: questions with only an 'answer' field need generated options
+    if (!state.freeInputMode) {
+      picked = normalizeMCQuestions(picked);
+    }
+
+    state.questions = picked;
     state.currentIndex = 0;
     state.correctCount = 0;
     state.wrongCount = 0;
@@ -361,14 +456,29 @@ function renderQuestion() {
   progressBar.style.width = `${((current - 1) / total) * 100}%`;
   questionText.textContent = q.question;
 
-  optionsList.innerHTML = '';
-  q.options.forEach((option, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.innerHTML = `<span class="option-letter">${OPTION_LETTERS[i]}</span>${escapeHtml(option)}`;
-    btn.addEventListener('click', () => handleAnswer(i));
-    optionsList.appendChild(btn);
-  });
+  if (state.freeInputMode) {
+    // Free text input mode
+    optionsList.style.display = 'none';
+    textInputWrap.style.display = 'block';
+    answerInput.value = '';
+    answerInput.disabled = false;
+    answerInput.classList.remove('correct', 'wrong');
+    submitAnswerBtn.disabled = false;
+    // Focus the input so the user can type immediately
+    answerInput.focus();
+  } else {
+    // Multiple Choice mode
+    textInputWrap.style.display = 'none';
+    optionsList.style.display = '';
+    optionsList.innerHTML = '';
+    q.options.forEach((option, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.innerHTML = `<span class="option-letter">${OPTION_LETTERS[i]}</span>${escapeHtml(option)}`;
+      btn.addEventListener('click', () => handleAnswer(i));
+      optionsList.appendChild(btn);
+    });
+  }
 }
 
 function handleAnswer(selectedIndex) {
@@ -416,6 +526,52 @@ function handleAnswer(selectedIndex) {
   nextBtn.textContent = isLast ? 'Auswertung ansehen →' : 'Nächste Frage →';
 }
 
+function handleTextAnswer(inputValue) {
+  if (state.answered) return;
+  state.answered = true;
+
+  const q = state.questions[state.currentIndex];
+  const trimmed = inputValue.trim();
+
+  // Compare numerically when both sides are valid numbers, otherwise case-insensitive string compare
+  const numInput = Number(trimmed);
+  const numAnswer = Number(q.answer);
+  const isCorrect = (!isNaN(numInput) && !isNaN(numAnswer))
+    ? numInput === numAnswer
+    : trimmed.toLowerCase() === String(q.answer).toLowerCase();
+
+  if (isCorrect) {
+    state.correctCount++;
+  } else {
+    state.wrongCount++;
+  }
+
+  // Disable input
+  answerInput.disabled = true;
+  submitAnswerBtn.disabled = true;
+  answerInput.classList.add(isCorrect ? 'correct' : 'wrong');
+
+  // Show feedback
+  feedbackArea.style.display = 'flex';
+  if (isCorrect) {
+    feedbackArea.className = 'feedback-area correct-feedback';
+    feedbackIcon.textContent = '✅';
+    feedbackStrong.textContent = 'Richtig! Gut gemacht!';
+    feedbackCorrectAnswer.textContent = '';
+  } else {
+    feedbackArea.className = 'feedback-area wrong-feedback';
+    feedbackIcon.textContent = '❌';
+    feedbackStrong.textContent = 'Falsch!';
+    feedbackCorrectAnswer.textContent = `Richtige Antwort: ${q.answer}`;
+  }
+
+  // Show next button
+  const nextBtnWrap = document.getElementById('next-btn-wrap');
+  nextBtnWrap.style.display = 'block';
+  const isLast = state.currentIndex === state.questions.length - 1;
+  nextBtn.textContent = isLast ? 'Auswertung ansehen →' : 'Nächste Frage →';
+}
+
 nextBtn.addEventListener('click', () => {
   if (state.currentIndex < state.questions.length - 1) {
     state.currentIndex++;
@@ -423,6 +579,14 @@ nextBtn.addEventListener('click', () => {
   } else {
     showResults();
   }
+});
+
+submitAnswerBtn.addEventListener('click', () => {
+  if (answerInput.value.trim() !== '') handleTextAnswer(answerInput.value);
+});
+
+answerInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && answerInput.value.trim() !== '') handleTextAnswer(answerInput.value);
 });
 
 // ──────────────────────────────────────────
@@ -485,7 +649,14 @@ restartBtn.addEventListener('click', () => {
   }
 
   const count = Math.min(state.questionCount, quizData.questions.length);
-  state.questions = pickRandom(quizData.questions, count);
+  let picked = pickRandom(quizData.questions, count);
+
+  // Normalize free-input questions to MC if needed
+  if (!state.freeInputMode) {
+    picked = normalizeMCQuestions(picked);
+  }
+
+  state.questions = picked;
   showScreen('quiz');
   renderQuestion();
 });

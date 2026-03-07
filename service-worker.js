@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quiz-pwa-v3';
+const CACHE_NAME = 'quiz-pwa-v4';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -11,7 +11,10 @@ const ASSETS_TO_CACHE = [
   './quizzes/science.json',
   './quizzes/history.json',
   './quizzes/paw-patrol.json',
-  './quizzes/csharp.json'
+  './quizzes/csharp.json',
+  './quizzes/mathe-einmaleins.json',
+  './quizzes/mathe-teilen.json',
+  './quizzes/mathe-gemischt.json'
 ];
 
 self.addEventListener('install', (event) => {

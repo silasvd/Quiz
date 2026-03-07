@@ -1,0 +1,407 @@
+{
+  "title": "Geteiltaufgaben",
+  "description": "Alle Divisionsaufgaben des kleinen Einmaleins",
+  "allowFreeInput": true,
+  "questions": [
+    {
+      "question": "1 ÷ 1 = ?",
+      "answer": 1
+    },
+    {
+      "question": "2 ÷ 1 = ?",
+      "answer": 2
+    },
+    {
+      "question": "3 ÷ 1 = ?",
+      "answer": 3
+    },
+    {
+      "question": "4 ÷ 1 = ?",
+      "answer": 4
+    },
+    {
+      "question": "5 ÷ 1 = ?",
+      "answer": 5
+    },
+    {
+      "question": "6 ÷ 1 = ?",
+      "answer": 6
+    },
+    {
+      "question": "7 ÷ 1 = ?",
+      "answer": 7
+    },
+    {
+      "question": "8 ÷ 1 = ?",
+      "answer": 8
+    },
+    {
+      "question": "9 ÷ 1 = ?",
+      "answer": 9
+    },
+    {
+      "question": "10 ÷ 1 = ?",
+      "answer": 10
+    },
+    {
+      "question": "2 ÷ 2 = ?",
+      "answer": 1
+    },
+    {
+      "question": "4 ÷ 2 = ?",
+      "answer": 2
+    },
+    {
+      "question": "6 ÷ 2 = ?",
+      "answer": 3
+    },
+    {
+      "question": "8 ÷ 2 = ?",
+      "answer": 4
+    },
+    {
+      "question": "10 ÷ 2 = ?",
+      "answer": 5
+    },
+    {
+      "question": "12 ÷ 2 = ?",
+      "answer": 6
+    },
+    {
+      "question": "14 ÷ 2 = ?",
+      "answer": 7
+    },
+    {
+      "question": "16 ÷ 2 = ?",
+      "answer": 8
+    },
+    {
+      "question": "18 ÷ 2 = ?",
+      "answer": 9
+    },
+    {
+      "question": "20 ÷ 2 = ?",
+      "answer": 10
+    },
+    {
+      "question": "3 ÷ 3 = ?",
+      "answer": 1
+    },
+    {
+      "question": "6 ÷ 3 = ?",
+      "answer": 2
+    },
+    {
+      "question": "9 ÷ 3 = ?",
+      "answer": 3
+    },
+    {
+      "question": "12 ÷ 3 = ?",
+      "answer": 4
+    },
+    {
+      "question": "15 ÷ 3 = ?",
+      "answer": 5
+    },
+    {
+      "question": "18 ÷ 3 = ?",
+      "answer": 6
+    },
+    {
+      "question": "21 ÷ 3 = ?",
+      "answer": 7
+    },
+    {
+      "question": "24 ÷ 3 = ?",
+      "answer": 8
+    },
+    {
+      "question": "27 ÷ 3 = ?",
+      "answer": 9
+    },
+    {
+      "question": "30 ÷ 3 = ?",
+      "answer": 10
+    },
+    {
+      "question": "4 ÷ 4 = ?",
+      "answer": 1
+    },
+    {
+      "question": "8 ÷ 4 = ?",
+      "answer": 2
+    },
+    {
+      "question": "12 ÷ 4 = ?",
+      "answer": 3
+    },
+    {
+      "question": "16 ÷ 4 = ?",
+      "answer": 4
+    },
+    {
+      "question": "20 ÷ 4 = ?",
+      "answer": 5
+    },
+    {
+      "question": "24 ÷ 4 = ?",
+      "answer": 6
+    },
+    {
+      "question": "28 ÷ 4 = ?",
+      "answer": 7
+    },
+    {
+      "question": "32 ÷ 4 = ?",
+      "answer": 8
+    },
+    {
+      "question": "36 ÷ 4 = ?",
+      "answer": 9
+    },
+    {
+      "question": "40 ÷ 4 = ?",
+      "answer": 10
+    },
+    {
+      "question": "5 ÷ 5 = ?",
+      "answer": 1
+    },
+    {
+      "question": "10 ÷ 5 = ?",
+      "answer": 2
+    },
+    {
+      "question": "15 ÷ 5 = ?",
+      "answer": 3
+    },
+    {
+      "question": "20 ÷ 5 = ?",
+      "answer": 4
+    },
+    {
+      "question": "25 ÷ 5 = ?",
+      "answer": 5
+    },
+    {
+      "question": "30 ÷ 5 = ?",
+      "answer": 6
+    },
+    {
+      "question": "35 ÷ 5 = ?",
+      "answer": 7
+    },
+    {
+      "question": "40 ÷ 5 = ?",
+      "answer": 8
+    },
+    {
+      "question": "45 ÷ 5 = ?",
+      "answer": 9
+    },
+    {
+      "question": "50 ÷ 5 = ?",
+      "answer": 10
+    },
+    {
+      "question": "6 ÷ 6 = ?",
+      "answer": 1
+    },
+    {
+      "question": "12 ÷ 6 = ?",
+      "answer": 2
+    },
+    {
+      "question": "18 ÷ 6 = ?",
+      "answer": 3
+    },
+    {
+      "question": "24 ÷ 6 = ?",
+      "answer": 4
+    },
+    {
+      "question": "30 ÷ 6 = ?",
+      "answer": 5
+    },
+    {
+      "question": "36 ÷ 6 = ?",
+      "answer": 6
+    },
+    {
+      "question": "42 ÷ 6 = ?",
+      "answer": 7
+    },
+    {
+      "question": "48 ÷ 6 = ?",
+      "answer": 8
+    },
+    {
+      "question": "54 ÷ 6 = ?",
+      "answer": 9
+    },
+    {
+      "question": "60 ÷ 6 = ?",
+      "answer": 10
+    },
+    {
+      "question": "7 ÷ 7 = ?",
+      "answer": 1
+    },
+    {
+      "question": "14 ÷ 7 = ?",
+      "answer": 2
+    },
+    {
+      "question": "21 ÷ 7 = ?",
+      "answer": 3
+    },
+    {
+      "question": "28 ÷ 7 = ?",
+      "answer": 4
+    },
+    {
+      "question": "35 ÷ 7 = ?",
+      "answer": 5
+    },
+    {
+      "question": "42 ÷ 7 = ?",
+      "answer": 6
+    },
+    {
+      "question": "49 ÷ 7 = ?",
+      "answer": 7
+    },
+    {
+      "question": "56 ÷ 7 = ?",
+      "answer": 8
+    },
+    {
+      "question": "63 ÷ 7 = ?",
+      "answer": 9
+    },
+    {
+      "question": "70 ÷ 7 = ?",
+      "answer": 10
+    },
+    {
+      "question": "8 ÷ 8 = ?",
+      "answer": 1
+    },
+    {
+      "question": "16 ÷ 8 = ?",
+      "answer": 2
+    },
+    {
+      "question": "24 ÷ 8 = ?",
+      "answer": 3
+    },
+    {
+      "question": "32 ÷ 8 = ?",
+      "answer": 4
+    },
+    {
+      "question": "40 ÷ 8 = ?",
+      "answer": 5
+    },
+    {
+      "question": "48 ÷ 8 = ?",
+      "answer": 6
+    },
+    {
+      "question": "56 ÷ 8 = ?",
+      "answer": 7
+    },
+    {
+      "question": "64 ÷ 8 = ?",
+      "answer": 8
+    },
+    {
+      "question": "72 ÷ 8 = ?",
+      "answer": 9
+    },
+    {
+      "question": "80 ÷ 8 = ?",
+      "answer": 10
+    },
+    {
+      "question": "9 ÷ 9 = ?",
+      "answer": 1
+    },
+    {
+      "question": "18 ÷ 9 = ?",
+      "answer": 2
+    },
+    {
+      "question": "27 ÷ 9 = ?",
+      "answer": 3
+    },
+    {
+      "question": "36 ÷ 9 = ?",
+      "answer": 4
+    },
+    {
+      "question": "45 ÷ 9 = ?",
+      "answer": 5
+    },
+    {
+      "question": "54 ÷ 9 = ?",
+      "answer": 6
+    },
+    {
+      "question": "63 ÷ 9 = ?",
+      "answer": 7
+    },
+    {
+      "question": "72 ÷ 9 = ?",
+      "answer": 8
+    },
+    {
+      "question": "81 ÷ 9 = ?",
+      "answer": 9
+    },
+    {
+      "question": "90 ÷ 9 = ?",
+      "answer": 10
+    },
+    {
+      "question": "10 ÷ 10 = ?",
+      "answer": 1
+    },
+    {
+      "question": "20 ÷ 10 = ?",
+      "answer": 2
+    },
+    {
+      "question": "30 ÷ 10 = ?",
+      "answer": 3
+    },
+    {
+      "question": "40 ÷ 10 = ?",
+      "answer": 4
+    },
+    {
+      "question": "50 ÷ 10 = ?",
+      "answer": 5
+    },
+    {
+      "question": "60 ÷ 10 = ?",
+      "answer": 6
+    },
+    {
+      "question": "70 ÷ 10 = ?",
+      "answer": 7
+    },
+    {
+      "question": "80 ÷ 10 = ?",
+      "answer": 8
+    },
+    {
+      "question": "90 ÷ 10 = ?",
+      "answer": 9
+    },
+    {
+      "question": "100 ÷ 10 = ?",
+      "answer": 10
+    }
+  ]
+}
