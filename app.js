@@ -65,6 +65,13 @@ const REPO_QUIZZES = [
     icon: '🔢',
     file: 'quizzes/mathe-gemischt.json',
     allowFreeInput: true
+  },
+  {
+    id: 'kinderlieder',
+    title: 'Kinderlieder erraten',
+    description: 'Erkenne das Kinderlied anhand der Melodie',
+    icon: '🎵',
+    file: 'quizzes/kinderlieder.json'
   }
 ];
 
@@ -154,6 +161,7 @@ function pickRandom(arr, n) {
 }
 
 function showScreen(name) {
+  if (name !== 'quiz') stopMelodyAudio();
   Object.values(screens).forEach((s) => s.classList.remove('active'));
   screens[name].classList.add('active');
 }
@@ -165,6 +173,333 @@ function showError(msg) {
 
 function hideError() {
   errorBanner.classList.remove('visible');
+}
+
+// ──────────────────────────────────────────
+// Melody quiz – parsing, rendering, playback
+// ──────────────────────────────────────────
+
+/** Parse melody text notation into an array of measures, each containing notes.
+ *  Format: "C4/4 D4/4 E4/4 F4/4 | G4/2 G4/2" */
+function parseMelody(str) {
+  return str.split('|').map(m => {
+    return m.trim().split(/\s+/).filter(Boolean).map(token => {
+      // Rest
+      const restMatch = token.match(/^R\/(\d+\.?)$/);
+      if (restMatch) return { rest: true, duration: restMatch[1] };
+      // Note: e.g. C4/4, F#4/8, Bb4/2.
+      const noteMatch = token.match(/^([A-G][#b]?)(\d)\/(\d+\.?)$/);
+      if (!noteMatch) return null;
+      return { pitch: noteMatch[1], octave: parseInt(noteMatch[2]), duration: noteMatch[3], rest: false };
+    }).filter(Boolean);
+  });
+}
+
+/** Staff position for a note (0 = E4 on bottom line of treble clef) */
+function noteStaffPos(pitch, octave) {
+  const m = { C: 0, D: 1, E: 2, F: 3, G: 4, A: 5, B: 6 };
+  return m[pitch[0]] + (octave - 4) * 7 - 2;
+}
+
+/** Duration string to number of beats (quarter note = 1 beat) */
+function durationBeats(durStr) {
+  const base = parseInt(durStr);
+  let beats = 4 / base;
+  if (durStr.includes('.')) beats *= 1.5;
+  return beats;
+}
+
+/** Note frequency in Hz (A4 = 440) */
+function noteFrequency(pitch, octave) {
+  const offsets = { 'C':-9,'C#':-8,'Db':-8,'D':-7,'D#':-6,'Eb':-6,'E':-5,'F':-4,'F#':-3,'Gb':-3,'G':-2,'G#':-1,'Ab':-1,'A':0,'A#':1,'Bb':1,'B':2 };
+  return 440 * Math.pow(2, (offsets[pitch] + (octave - 4) * 12) / 12);
+}
+
+/* ---- SVG staff rendering ---- */
+
+const ML = { // Melody Layout constants
+  ls: 12,          // line spacing
+  top: 40,         // top margin
+  bot: 30,         // bottom margin
+  left: 50,        // left margin (clef + time sig)
+  right: 15,       // right margin
+  mw: 160,         // measure width
+  noteRx: 6,       // note head horizontal radius
+  noteRy: 4.5,     // note head vertical radius
+  stem: 32,        // stem length
+  staffColor: '#667788',
+  noteColor: '#d0d8e8'
+};
+
+function createMelodySVG(measures, timeSignature) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const numMeasures = measures.length;
+  const svgW = ML.left + numMeasures * ML.mw + ML.right;
+  const bottomY = ML.top + 4 * ML.ls;
+  const svgH = ML.top + 4 * ML.ls + ML.bot;
+
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${svgW} ${svgH}`);
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+  svg.setAttribute('role', 'img');
+  svg.setAttribute('aria-label', 'Notenblatt mit Melodie');
+
+  // Staff lines
+  const staffX1 = ML.left - 8;
+  const staffX2 = svgW - ML.right;
+  for (let i = 0; i < 5; i++) {
+    const y = ML.top + i * ML.ls;
+    const l = document.createElementNS(ns, 'line');
+    l.setAttribute('x1', staffX1); l.setAttribute('y1', y);
+    l.setAttribute('x2', staffX2); l.setAttribute('y2', y);
+    l.setAttribute('stroke', ML.staffColor); l.setAttribute('stroke-width', '1');
+    svg.appendChild(l);
+  }
+
+  // Left bar line
+  addLine(svg, staffX1, ML.top, staffX1, bottomY, ML.staffColor, 1.5);
+
+  // Treble clef (Unicode character)
+  const clef = document.createElementNS(ns, 'text');
+  clef.setAttribute('x', '2');
+  clef.setAttribute('y', String(bottomY + 8));
+  clef.setAttribute('font-size', '56');
+  clef.setAttribute('fill', '#8899aa');
+  clef.setAttribute('font-family', 'serif');
+  clef.textContent = '\u{1D11E}';
+  svg.appendChild(clef);
+
+  // Time signature
+  const ts = (timeSignature || '4/4').split('/');
+  const tsX = ML.left - 16;
+  addText(svg, tsX, ML.top + ML.ls * 1.7, ts[0], '16', '#aabbcc');
+  addText(svg, tsX, ML.top + ML.ls * 3.7, ts[1], '16', '#aabbcc');
+
+  // Draw measures
+  measures.forEach((notes, mi) => {
+    const mStartX = ML.left + mi * ML.mw;
+    const totalBeats = notes.reduce((s, n) => s + durationBeats(n.duration), 0);
+    const usableW = ML.mw - 20; // padding within measure
+    let beatOffset = 0;
+
+    notes.forEach(note => {
+      const beats = durationBeats(note.duration);
+      const x = mStartX + 12 + (beatOffset / totalBeats) * usableW;
+      beatOffset += beats;
+
+      if (note.rest) {
+        // Draw quarter rest symbol
+        addText(svg, x - 4, ML.top + ML.ls * 2.5, '𝄾', '16', '#8899aa');
+        return;
+      }
+
+      const pos = noteStaffPos(note.pitch, note.octave);
+      const y = bottomY - pos * (ML.ls / 2);
+      const dur = parseInt(note.duration);
+      const filled = dur >= 4;
+      const hasStem = dur >= 2;
+
+      // Ledger lines
+      if (pos <= -2) {
+        for (let lp = -2; lp >= pos; lp -= 2) {
+          const ly = bottomY - lp * (ML.ls / 2);
+          addLine(svg, x - ML.noteRx - 4, ly, x + ML.noteRx + 4, ly, ML.staffColor, 1);
+        }
+      }
+      if (pos >= 10) {
+        for (let lp = 10; lp <= pos; lp += 2) {
+          const ly = bottomY - lp * (ML.ls / 2);
+          addLine(svg, x - ML.noteRx - 4, ly, x + ML.noteRx + 4, ly, ML.staffColor, 1);
+        }
+      }
+
+      // Note head
+      const head = document.createElementNS(ns, 'ellipse');
+      head.setAttribute('cx', x); head.setAttribute('cy', y);
+      head.setAttribute('rx', ML.noteRx); head.setAttribute('ry', ML.noteRy);
+      head.setAttribute('transform', `rotate(-12 ${x} ${y})`);
+      if (filled) {
+        head.setAttribute('fill', ML.noteColor);
+      } else {
+        head.setAttribute('fill', 'none');
+        head.setAttribute('stroke', ML.noteColor);
+        head.setAttribute('stroke-width', '1.5');
+      }
+      svg.appendChild(head);
+
+      // Dot for dotted notes
+      if (note.duration.includes('.')) {
+        const dot = document.createElementNS(ns, 'circle');
+        dot.setAttribute('cx', x + ML.noteRx + 4);
+        dot.setAttribute('cy', y);
+        dot.setAttribute('r', '1.8');
+        dot.setAttribute('fill', ML.noteColor);
+        svg.appendChild(dot);
+      }
+
+      // Stem
+      if (hasStem) {
+        const stemUp = pos < 4; // below middle line → stem up
+        if (stemUp) {
+          addLine(svg, x + ML.noteRx - 1, y, x + ML.noteRx - 1, y - ML.stem, ML.noteColor, 1.5);
+          // Flag for eighth notes
+          if (dur === 8) drawFlag(svg, x + ML.noteRx - 1, y - ML.stem, true);
+          if (dur === 16) { drawFlag(svg, x + ML.noteRx - 1, y - ML.stem, true); drawFlag(svg, x + ML.noteRx - 1, y - ML.stem + 8, true); }
+        } else {
+          addLine(svg, x - ML.noteRx + 1, y, x - ML.noteRx + 1, y + ML.stem, ML.noteColor, 1.5);
+          if (dur === 8) drawFlag(svg, x - ML.noteRx + 1, y + ML.stem, false);
+          if (dur === 16) { drawFlag(svg, x - ML.noteRx + 1, y + ML.stem, false); drawFlag(svg, x - ML.noteRx + 1, y + ML.stem - 8, false); }
+        }
+      }
+    });
+
+    // Bar line at end of measure (except last)
+    if (mi < numMeasures - 1) {
+      const bx = mStartX + ML.mw;
+      addLine(svg, bx, ML.top, bx, bottomY, ML.staffColor, 1);
+    }
+  });
+
+  // Final double bar line
+  const endX = svgW - ML.right;
+  addLine(svg, endX - 4, ML.top, endX - 4, bottomY, ML.staffColor, 1);
+  addLine(svg, endX, ML.top, endX, bottomY, ML.staffColor, 2.5);
+
+  return svg;
+}
+
+function addLine(svg, x1, y1, x2, y2, color, width) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const l = document.createElementNS(ns, 'line');
+  l.setAttribute('x1', x1); l.setAttribute('y1', y1);
+  l.setAttribute('x2', x2); l.setAttribute('y2', y2);
+  l.setAttribute('stroke', color); l.setAttribute('stroke-width', width);
+  svg.appendChild(l);
+}
+
+function addText(svg, x, y, text, size, color) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const t = document.createElementNS(ns, 'text');
+  t.setAttribute('x', x); t.setAttribute('y', y);
+  t.setAttribute('font-size', size);
+  t.setAttribute('font-weight', '700');
+  t.setAttribute('fill', color);
+  t.setAttribute('font-family', 'serif');
+  t.setAttribute('text-anchor', 'middle');
+  t.textContent = text;
+  svg.appendChild(t);
+}
+
+function drawFlag(svg, x, y, up) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const p = document.createElementNS(ns, 'path');
+  if (up) {
+    p.setAttribute('d', `M${x} ${y} C${x + 2} ${y + 6} ${x + 8} ${y + 10} ${x + 6} ${y + 16}`);
+  } else {
+    p.setAttribute('d', `M${x} ${y} C${x - 2} ${y - 6} ${x - 8} ${y - 10} ${x - 6} ${y - 16}`);
+  }
+  p.setAttribute('stroke', ML.noteColor);
+  p.setAttribute('stroke-width', '1.5');
+  p.setAttribute('fill', 'none');
+  svg.appendChild(p);
+}
+
+/* ---- Audio playback using Web Audio API ---- */
+
+let melodyAudioCtx = null;
+let melodyScheduledNodes = [];
+let melodyPlayTimer = null;
+
+function playMelodyAudio(melodyStr, tempo) {
+  stopMelodyAudio();
+  if (!melodyAudioCtx) {
+    melodyAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (melodyAudioCtx.state === 'suspended') melodyAudioCtx.resume();
+
+  const measures = parseMelody(melodyStr);
+  const beatDur = 60 / (tempo || 120);
+  let time = melodyAudioCtx.currentTime + 0.05;
+
+  for (const measure of measures) {
+    for (const note of measure) {
+      const dur = durationBeats(note.duration) * beatDur;
+      if (!note.rest) {
+        const freq = noteFrequency(note.pitch, note.octave);
+        scheduleTone(freq, time, dur * 0.85);
+      }
+      time += dur;
+    }
+  }
+
+  // Update play button state when melody finishes
+  const totalMs = (time - melodyAudioCtx.currentTime) * 1000 + 100;
+  melodyPlayTimer = setTimeout(() => {
+    const btn = document.getElementById('melody-play-btn');
+    if (btn) { btn.textContent = '▶ Melodie abspielen'; btn.classList.remove('playing'); }
+  }, totalMs);
+}
+
+function scheduleTone(freq, start, dur) {
+  const ctx = melodyAudioCtx;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.type = 'triangle';
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0.001, start);
+  gain.gain.exponentialRampToValueAtTime(0.28, start + Math.min(0.04, dur * 0.15));
+  gain.gain.exponentialRampToValueAtTime(0.001, start + dur);
+  osc.start(start);
+  osc.stop(start + dur + 0.02);
+  melodyScheduledNodes.push(osc);
+}
+
+function stopMelodyAudio() {
+  if (melodyPlayTimer) { clearTimeout(melodyPlayTimer); melodyPlayTimer = null; }
+  melodyScheduledNodes.forEach(osc => { try { osc.stop(); } catch (_) {} });
+  melodyScheduledNodes = [];
+  const btn = document.getElementById('melody-play-btn');
+  if (btn) { btn.textContent = '▶ Melodie abspielen'; btn.classList.remove('playing'); }
+}
+
+/** Build and insert the melody display (staff + play button) into the quiz screen */
+function renderMelodyDisplay(q) {
+  // Remove previous melody display if any
+  const existing = document.getElementById('melody-display');
+  if (existing) existing.remove();
+
+  const container = document.createElement('div');
+  container.id = 'melody-display';
+  container.className = 'melody-container';
+
+  // SVG staff
+  const staffWrap = document.createElement('div');
+  staffWrap.className = 'melody-staff';
+  const measures = parseMelody(q.melody);
+  staffWrap.appendChild(createMelodySVG(measures, q.timeSignature));
+  container.appendChild(staffWrap);
+
+  // Play button
+  const playBtn = document.createElement('button');
+  playBtn.type = 'button';
+  playBtn.id = 'melody-play-btn';
+  playBtn.className = 'melody-play-btn';
+  playBtn.textContent = '▶ Melodie abspielen';
+  playBtn.addEventListener('click', () => {
+    if (playBtn.classList.contains('playing')) {
+      stopMelodyAudio();
+    } else {
+      playBtn.textContent = '⏹ Stopp';
+      playBtn.classList.add('playing');
+      playMelodyAudio(q.melody, q.tempo);
+    }
+  });
+  container.appendChild(playBtn);
+
+  // Insert after question text
+  questionText.after(container);
 }
 
 // ──────────────────────────────────────────
@@ -403,6 +738,7 @@ function renderQuestion() {
   state.answered = false;
   feedbackArea.style.display = 'none';
   document.getElementById('next-btn-wrap').style.display = 'none';
+  stopMelodyAudio();
 
   const q = state.questions[state.currentIndex];
   const total = state.questions.length;
@@ -411,6 +747,11 @@ function renderQuestion() {
   progressText.textContent = `${current} / ${total}`;
   progressBar.style.width = `${((current - 1) / total) * 100}%`;
   questionText.textContent = q.question;
+
+  // Melody display (remove old, add new if applicable)
+  const oldMelody = document.getElementById('melody-display');
+  if (oldMelody) oldMelody.remove();
+  if (q.melody) renderMelodyDisplay(q);
 
   if (state.freeInputMode) {
     // Free text input mode

@@ -712,4 +712,57 @@ body {
   .result-actions {
     flex-direction: column;
   }
+  .melody-staff {
+    min-width: 340px;
+  }
+}
+
+/* ===== Melody Quiz ===== */
+.melody-container {
+  margin-bottom: 1.5rem;
+}
+
+.melody-staff {
+  background: #0b1524;
+  border-radius: 0.75rem;
+  padding: 12px 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.melody-staff svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 400px;
+}
+
+.melody-play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 12px auto 0;
+  padding: 0.65rem 1.5rem;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 2px solid var(--border);
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.melody-play-btn:hover {
+  border-color: var(--accent);
+  background: var(--option-hover);
+}
+
+.melody-play-btn.playing {
+  border-color: var(--accent);
+  background: rgba(233, 69, 96, 0.15);
+  color: var(--accent);
 }
