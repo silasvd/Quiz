@@ -91,6 +91,7 @@ const feedbackIcon = document.getElementById('feedback-icon');
 const feedbackStrong = document.getElementById('feedback-strong');
 const feedbackCorrectAnswer = document.getElementById('feedback-correct-answer');
 const nextBtn = document.getElementById('next-btn');
+const cancelQuizBtn = document.getElementById('cancel-quiz-btn');
 
 // Result screen
 const resultEmoji = document.getElementById('result-emoji');
@@ -422,6 +423,15 @@ nextBtn.addEventListener('click', () => {
   } else {
     showResults();
   }
+});
+
+cancelQuizBtn.addEventListener('click', () => {
+  state.currentIndex = 0;
+  state.correctCount = 0;
+  state.wrongCount = 0;
+  state.answered = false;
+  state.questions = [];
+  showScreen('start');
 });
 
 // ──────────────────────────────────────────
