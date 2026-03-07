@@ -1,0 +1,61 @@
+{
+  "title": "Naturwissenschaften",
+  "description": "Fragen über Physik, Chemie und Biologie.",
+  "questions": [
+    {
+      "question": "Was ist die Formel für Wasser?",
+      "options": ["H2O2", "HO2", "H2O", "H3O"],
+      "correct": 2
+    },
+    {
+      "question": "Welches Tier ist das größte Landtier der Welt?",
+      "options": ["Nilpferd", "Nashorn", "Elefant", "Giraffe"],
+      "correct": 2
+    },
+    {
+      "question": "Wie schnell ist Licht (ca.) in km/s?",
+      "options": ["100.000", "200.000", "300.000", "400.000"],
+      "correct": 2
+    },
+    {
+      "question": "Welches Element hat die Ordnungszahl 1?",
+      "options": ["Helium", "Lithium", "Wasserstoff", "Beryllium"],
+      "correct": 2
+    },
+    {
+      "question": "Was ist die kleinste Einheit des Lebens?",
+      "options": ["Atom", "Molekül", "Zelle", "Gewebe"],
+      "correct": 2
+    },
+    {
+      "question": "Welche Kraft hält Elektronen in der Umlaufbahn um den Kern?",
+      "options": ["Gravitation", "Elektromagnetische Kraft", "Starke Kernkraft", "Schwache Kernkraft"],
+      "correct": 1
+    },
+    {
+      "question": "Wie viele Knochen hat ein erwachsener Mensch?",
+      "options": ["196", "206", "216", "226"],
+      "correct": 1
+    },
+    {
+      "question": "Was ist der Siedepunkt von Wasser bei normalem Luftdruck?",
+      "options": ["90°C", "95°C", "100°C", "105°C"],
+      "correct": 2
+    },
+    {
+      "question": "Welcher Planet ist der Erde am nächsten (nach dem Mond)?",
+      "options": ["Mars", "Venus", "Merkur", "Jupiter"],
+      "correct": 1
+    },
+    {
+      "question": "Was ist DNA?",
+      "options": [
+        "Deoxyribonucleic Acid",
+        "Dinitrogen Acid",
+        "Dynamic Neural Array",
+        "Dendritic Nucleic Acid"
+      ],
+      "correct": 0
+    }
+  ]
+}
