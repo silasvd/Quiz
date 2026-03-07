@@ -1,0 +1,76 @@
+{
+  "title": "C#",
+  "description": "Grundlagen der Programmiersprache C#.",
+  "questions": [
+    {
+      "question": "Welche Methode wird verwendet, um Text auf der Konsole auszugeben?",
+      "options": [
+        "Console.ReadLine()",
+        "Console.WriteLine()",
+        "Console.Print()",
+        "Console.Output()"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welche Methode liest eine Eingabe vom Benutzer ein?",
+      "options": [
+        "Console.GetInput()",
+        "Console.Input()",
+        "Console.ReadLine()",
+        "Console.Scan()"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welcher Datentyp wird für ganze Zahlen verwendet?",
+      "options": [
+        "float",
+        "double",
+        "int",
+        "number"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welcher Datentyp wird für Textketten verwendet?",
+      "options": [
+        "char",
+        "str",
+        "string",
+        "text"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welche Struktur wird verwendet, um eine Bedingung zu prüfen?",
+      "options": [
+        "loop",
+        "switch",
+        "if",
+        "try"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welche Schleife wiederholt einen Codeblock, solange eine Bedingung wahr ist?",
+      "options": [
+        "for",
+        "do-while",
+        "while",
+        "foreach"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was ist eine Variable?",
+      "options": [
+        "Ein Datentyp",
+        "Ein Container für Daten mit einem Namen",
+        "Eine Funktion",
+        "Ein Regelwerk"
+      ],
+      "correct": 1
+    }
+  ]
+}
