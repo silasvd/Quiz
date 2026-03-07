@@ -121,16 +121,6 @@
         "Zuma"
       ],
       "correct": 0
-    },
-    {
-      "question": "Welche Farbe hat Ryders Mütze?",
-      "options": [
-        "Blau",
-        "Rot",
-        "Gelb",
-        "Orange"
-      ],
-      "correct": 2
     }
   ]
 }
