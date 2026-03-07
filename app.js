@@ -29,6 +29,13 @@ const REPO_QUIZZES = [
     file: 'quizzes/history.json'
   },
   {
+    id: 'paw-patrol',
+    title: 'Paw Patrol',
+    description: 'Teste dein Wissen über die Paw Patrol!',
+    icon: '🐾',
+    file: 'quizzes/paw-patrol.json'
+  },
+  {
     id: 'csharp',
     title: 'C#',
     description: 'Grundlagen der Programmiersprache C#',
