@@ -82,6 +82,7 @@ const errorBanner = document.getElementById('error-banner');
 
 // Quiz screen
 const quizTitleBar = document.getElementById('quiz-title-bar');
+const quizBackBtn = document.getElementById('quiz-back-btn');
 const progressText = document.getElementById('progress-text');
 const progressBar = document.getElementById('progress-bar');
 const questionText = document.getElementById('question-text');
@@ -490,6 +491,10 @@ restartBtn.addEventListener('click', () => {
 });
 
 backBtn.addEventListener('click', () => {
+  showScreen('start');
+});
+
+quizBackBtn.addEventListener('click', () => {
   showScreen('start');
 });
 

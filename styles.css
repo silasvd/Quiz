@@ -322,6 +322,24 @@ body {
 }
 
 /* ===== Quiz Screen ===== */
+.btn-back {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.4rem;
+  transition: color 0.15s, background 0.15s;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.btn-back:hover {
+  color: var(--text-primary);
+  background: var(--bg-card);
+}
+
 .quiz-header {
   display: flex;
   align-items: center;
