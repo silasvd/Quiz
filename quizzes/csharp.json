@@ -1,6 +1,6 @@
 {
   "title": "C#",
-  "description": "Grundlagen der Programmiersprache C#.",
+  "description": "Programmiergrundlagen C#.",
   "questions": [
     {
       "question": "Welche Methode wird verwendet, um Text auf der Konsole auszugeben?",
