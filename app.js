@@ -259,15 +259,8 @@ function createMelodySVG(measures, timeSignature) {
   // Left bar line
   addLine(svg, staffX1, ML.top, staffX1, bottomY, ML.staffColor, 1.5);
 
-  // Treble clef (Unicode character)
-  const clef = document.createElementNS(ns, 'text');
-  clef.setAttribute('x', '2');
-  clef.setAttribute('y', String(bottomY + 8));
-  clef.setAttribute('font-size', '56');
-  clef.setAttribute('fill', '#8899aa');
-  clef.setAttribute('font-family', 'serif');
-  clef.textContent = '\u{1D11E}';
-  svg.appendChild(clef);
+  // Treble clef (SVG path)
+  drawTrebleClef(svg, bottomY);
 
   // Time signature
   const ts = (timeSignature || '4/4').split('/');
@@ -401,6 +394,39 @@ function drawFlag(svg, x, y, up) {
   p.setAttribute('stroke', ML.noteColor);
   p.setAttribute('stroke-width', '1.5');
   p.setAttribute('fill', 'none');
+  svg.appendChild(p);
+}
+
+function drawTrebleClef(svg, bottomY) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const color = '#8899aa';
+  const cx = 24;
+  const topY = ML.top;
+  const ls = ML.ls;
+
+  // Vertical stem
+  addLine(svg, cx, topY - 6, cx, bottomY + 12, color, 1.8);
+
+  // Main clef curves
+  const p = document.createElementNS(ns, 'path');
+  p.setAttribute('d', [
+    // Bottom curl
+    `M ${cx} ${bottomY + 6}`,
+    `C ${cx - 10} ${bottomY + 12} ${cx - 12} ${bottomY - 2} ${cx - 2} ${bottomY - 8}`,
+    // Ascending S-curve through the staff
+    `C ${cx + 10} ${bottomY - 18} ${cx - 8} ${topY + ls * 1.2} ${cx - 4} ${topY + ls * 0.2}`,
+    // Top hook
+    `C ${cx - 2} ${topY - 8} ${cx + 12} ${topY - 6} ${cx + 8} ${topY + ls * 0.8}`,
+    // Descending curve back to G area
+    `C ${cx + 4} ${topY + ls * 2} ${cx - 4} ${topY + ls * 2.6} ${cx} ${topY + ls * 3.2}`,
+    // Small G-line curl
+    `C ${cx + 6} ${topY + ls * 3.8} ${cx + 6} ${topY + ls * 2.8} ${cx} ${topY + ls * 3}`
+  ].join(' '));
+  p.setAttribute('fill', 'none');
+  p.setAttribute('stroke', color);
+  p.setAttribute('stroke-width', '2');
+  p.setAttribute('stroke-linecap', 'round');
+  p.setAttribute('stroke-linejoin', 'round');
   svg.appendChild(p);
 }
 
