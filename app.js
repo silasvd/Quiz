@@ -401,26 +401,36 @@ function drawTrebleClef(svg, bottomY) {
   const ns = 'http://www.w3.org/2000/svg';
   const color = '#8899aa';
   const cx = 24;
-  const topY = ML.top;
   const ls = ML.ls;
+  const topY = ML.top;
+  const gLine = bottomY - ls; // G line = 2nd from bottom
 
-  // Vertical stem
-  addLine(svg, cx, topY - 6, cx, bottomY + 12, color, 1.8);
-
-  // Main clef curves
+  // Single continuous path: bottom curl → ascending stem → G-line loop
+  // (stem crosses back through the loop) → top hook
   const p = document.createElementNS(ns, 'path');
   p.setAttribute('d', [
-    // Bottom curl
-    `M ${cx} ${bottomY + 6}`,
-    `C ${cx - 10} ${bottomY + 12} ${cx - 12} ${bottomY - 2} ${cx - 2} ${bottomY - 8}`,
-    // Ascending S-curve through the staff
-    `C ${cx + 10} ${bottomY - 18} ${cx - 8} ${topY + ls * 1.2} ${cx - 4} ${topY + ls * 0.2}`,
-    // Top hook
-    `C ${cx - 2} ${topY - 8} ${cx + 12} ${topY - 6} ${cx + 8} ${topY + ls * 0.8}`,
-    // Descending curve back to G area
-    `C ${cx + 4} ${topY + ls * 2} ${cx - 4} ${topY + ls * 2.6} ${cx} ${topY + ls * 3.2}`,
-    // Small G-line curl
-    `C ${cx + 6} ${topY + ls * 3.8} ${cx + 6} ${topY + ls * 2.8} ${cx} ${topY + ls * 3}`
+    // Start: bottom curl (spirals below the staff)
+    `M ${cx - 8} ${bottomY + 2}`,
+    `C ${cx - 14} ${bottomY + 6} ${cx - 14} ${bottomY + 14} ${cx - 6} ${bottomY + 14}`,
+    `C ${cx + 2} ${bottomY + 14} ${cx + 4} ${bottomY + 8} ${cx + 2} ${bottomY + 2}`,
+    // Ascending stem to the G-line area
+    `C ${cx} ${bottomY - 2} ${cx - 4} ${bottomY - 6} ${cx - 6} ${gLine}`,
+    // Enter loop from below-left, swing right above the G-line
+    `C ${cx - 6} ${gLine - 6} ${cx - 2} ${gLine - 10} ${cx + 4} ${gLine - 8}`,
+    // Right side of loop (bulges to the right of the staff)
+    `C ${cx + 12} ${gLine - 8} ${cx + 14} ${gLine} ${cx + 12} ${gLine + 8}`,
+    // Bottom of loop
+    `C ${cx + 8} ${gLine + 14} ${cx + 2} ${gLine + 16} ${cx - 4} ${gLine + 14}`,
+    // Left side of loop, returning to G-line
+    `C ${cx - 8} ${gLine + 12} ${cx - 8} ${gLine + 4} ${cx - 4} ${gLine}`,
+    // Stem ascends back UP through the loop (the defining G-clef crossing)
+    `C ${cx - 2} ${gLine - 8} ${cx - 2} ${gLine - 20} ${cx - 2} ${topY + 10}`,
+    // Curve toward the top staff line
+    `C ${cx - 2} ${topY + 6} ${cx + 2} ${topY + 2} ${cx + 4} ${topY}`,
+    // Top hook: curves right and up
+    `C ${cx + 10} ${topY - 4} ${cx + 10} ${topY - 12} ${cx + 4} ${topY - 14}`,
+    // Top hook: curls back left
+    `C ${cx - 2} ${topY - 14} ${cx - 4} ${topY - 10} ${cx - 4} ${topY - 6}`,
   ].join(' '));
   p.setAttribute('fill', 'none');
   p.setAttribute('stroke', color);
@@ -468,18 +478,28 @@ function playMelodyAudio(melodyStr, tempo) {
 
 function scheduleTone(freq, start, dur) {
   const ctx = melodyAudioCtx;
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-  osc.type = 'triangle';
-  osc.frequency.value = freq;
-  gain.gain.setValueAtTime(0.001, start);
-  gain.gain.exponentialRampToValueAtTime(0.28, start + Math.min(0.04, dur * 0.15));
-  gain.gain.exponentialRampToValueAtTime(0.001, start + dur);
-  osc.start(start);
-  osc.stop(start + dur + 0.02);
-  melodyScheduledNodes.push(osc);
+  // Glockenspiel-like tone: sine fundamentals + fast-decaying harmonics
+  const partials = [
+    { ratio: 1, peak: 0.28, decay: 0.35 },
+    { ratio: 2, peak: 0.10, decay: 0.12 },
+    { ratio: 3, peak: 0.04, decay: 0.06 },
+  ];
+  const noteLen = Math.min(dur * 0.9, dur - 0.02);
+  for (const h of partials) {
+    const osc = ctx.createOscillator();
+    const gn  = ctx.createGain();
+    osc.connect(gn);
+    gn.connect(ctx.destination);
+    osc.type = 'sine';
+    osc.frequency.value = freq * h.ratio;
+    const decayEnd = start + h.decay + Math.min(noteLen * 0.4, 0.6);
+    gn.gain.setValueAtTime(0.001, start);
+    gn.gain.exponentialRampToValueAtTime(h.peak, start + 0.012);
+    gn.gain.exponentialRampToValueAtTime(0.001, decayEnd);
+    osc.start(start);
+    osc.stop(decayEnd + 0.02);
+    melodyScheduledNodes.push(osc);
+  }
 }
 
 function stopMelodyAudio() {

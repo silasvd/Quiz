@@ -712,9 +712,6 @@ body {
   .result-actions {
     flex-direction: column;
   }
-  .melody-staff {
-    min-width: 340px;
-  }
 }
 
 /* ===== Melody Quiz ===== */
