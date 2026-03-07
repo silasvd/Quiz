@@ -27,6 +27,13 @@ const REPO_QUIZZES = [
     description: 'Fragen über die Weltgeschichte',
     icon: '🏛️',
     file: 'quizzes/history.json'
+  },
+  {
+    id: 'csharp',
+    title: 'C#',
+    description: 'Grundlagen der Programmiersprache C#',
+    icon: '💻',
+    file: 'quizzes/csharp.json'
   }
 ];
 
