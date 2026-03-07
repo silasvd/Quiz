@@ -222,7 +222,7 @@ const ML = { // Melody Layout constants
   top: 40,         // top margin
   bot: 30,         // bottom margin
   left: 50,        // left margin (clef + time sig)
-  right: 15,       // right margin
+  right: 24,       // right margin
   mw: 160,         // measure width
   noteRx: 6,       // note head horizontal radius
   noteRy: 4.5,     // note head vertical radius
@@ -400,37 +400,42 @@ function drawFlag(svg, x, y, up) {
 function drawTrebleClef(svg, bottomY) {
   const ns = 'http://www.w3.org/2000/svg';
   const color = '#8899aa';
-  const cx = 24;
-  const ls = ML.ls;
-  const topY = ML.top;
-  const gLine = bottomY - ls; // G line = 2nd from bottom
+  const ls = ML.ls;    // 12
+  const topY = ML.top; // 40
+  const gY = bottomY - ls; // G line (2nd from bottom) = 76
 
-  // Single continuous path: bottom curl → ascending stem → G-line loop
-  // (stem crosses back through the loop) → top hook
+  // ── Oval body: a proper ellipse centred on the G line ──────────────────
+  // The oval is the most recognisable part of a G-clef; using a real
+  // <ellipse> element guarantees it looks geometrically correct.
+  const ell = document.createElementNS(ns, 'ellipse');
+  ell.setAttribute('cx', '25');
+  ell.setAttribute('cy', String(gY));
+  ell.setAttribute('rx', '9');
+  ell.setAttribute('ry', '11');
+  ell.setAttribute('fill', 'none');
+  ell.setAttribute('stroke', color);
+  ell.setAttribute('stroke-width', '2');
+  svg.appendChild(ell);
+
+  // ── Stem: top hook → smooth descent → crossing through oval → foot curl ─
+  // The stem is drawn on top of the oval so the "passing-through" effect
+  // (the defining visual characteristic of a G-clef) is clearly visible.
   const p = document.createElementNS(ns, 'path');
   p.setAttribute('d', [
-    // Start: bottom curl (spirals below the staff)
-    `M ${cx - 8} ${bottomY + 2}`,
-    `C ${cx - 14} ${bottomY + 6} ${cx - 14} ${bottomY + 14} ${cx - 6} ${bottomY + 14}`,
-    `C ${cx + 2} ${bottomY + 14} ${cx + 4} ${bottomY + 8} ${cx + 2} ${bottomY + 2}`,
-    // Ascending stem to the G-line area
-    `C ${cx} ${bottomY - 2} ${cx - 4} ${bottomY - 6} ${cx - 6} ${gLine}`,
-    // Enter loop from below-left, swing right above the G-line
-    `C ${cx - 6} ${gLine - 6} ${cx - 2} ${gLine - 10} ${cx + 4} ${gLine - 8}`,
-    // Right side of loop (bulges to the right of the staff)
-    `C ${cx + 12} ${gLine - 8} ${cx + 14} ${gLine} ${cx + 12} ${gLine + 8}`,
-    // Bottom of loop
-    `C ${cx + 8} ${gLine + 14} ${cx + 2} ${gLine + 16} ${cx - 4} ${gLine + 14}`,
-    // Left side of loop, returning to G-line
-    `C ${cx - 8} ${gLine + 12} ${cx - 8} ${gLine + 4} ${cx - 4} ${gLine}`,
-    // Stem ascends back UP through the loop (the defining G-clef crossing)
-    `C ${cx - 2} ${gLine - 8} ${cx - 2} ${gLine - 20} ${cx - 2} ${topY + 10}`,
-    // Curve toward the top staff line
-    `C ${cx - 2} ${topY + 6} ${cx + 2} ${topY + 2} ${cx + 4} ${topY}`,
-    // Top hook: curves right and up
-    `C ${cx + 10} ${topY - 4} ${cx + 10} ${topY - 12} ${cx + 4} ${topY - 14}`,
-    // Top hook: curls back left
-    `C ${cx - 2} ${topY - 14} ${cx - 4} ${topY - 10} ${cx - 4} ${topY - 6}`,
+    // 1. Start above the staff
+    `M 20 ${topY - 14}`,
+    // 2. Top hook: sweeps right-up then curves back down-left
+    `C 29 ${topY - 18}  30 ${topY - 4}  22 ${topY + 4}`,
+    // 3. Smooth leftward lean as the stem descends toward the oval
+    `C 21 ${topY + 18}  20 ${gY - 22}  20 ${gY - 12}`,
+    // 4. Straight through the oval (at x=20 the ellipse spans approx y 67–85)
+    `L 20 ${gY + 12}`,
+    // 5. Continue below the oval, leaning slightly left
+    `C 20 ${bottomY + 4}  19 ${bottomY + 8}  17 ${bottomY + 12}`,
+    // 6. Foot curl: sweep left-down (the characteristic backward-C)
+    `C 13 ${bottomY + 18}  7 ${bottomY + 16}  7 ${bottomY + 10}`,
+    // 7. Foot curl: return right-up, ending inside the descending stroke
+    `C  7 ${bottomY + 4}  14 ${bottomY + 2}  18 ${bottomY + 5}`,
   ].join(' '));
   p.setAttribute('fill', 'none');
   p.setAttribute('stroke', color);
