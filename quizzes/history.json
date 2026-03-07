@@ -1,0 +1,56 @@
+{
+  "title": "Geschichte",
+  "description": "Fragen über die Weltgeschichte.",
+  "questions": [
+    {
+      "question": "In welchem Jahr begann der Erste Weltkrieg?",
+      "options": ["1910", "1912", "1914", "1916"],
+      "correct": 2
+    },
+    {
+      "question": "Wer war der erste Präsident der USA?",
+      "options": ["Abraham Lincoln", "Thomas Jefferson", "Benjamin Franklin", "George Washington"],
+      "correct": 3
+    },
+    {
+      "question": "In welchem Jahr fiel die Berliner Mauer?",
+      "options": ["1987", "1988", "1989", "1990"],
+      "correct": 2
+    },
+    {
+      "question": "Welche Zivilisation baute die Pyramiden von Gizeh?",
+      "options": ["Babylonier", "Römer", "Griechen", "Ägypter"],
+      "correct": 3
+    },
+    {
+      "question": "Wer war Napoleon Bonaparte?",
+      "options": ["Ein russischer Zar", "Ein britischer General", "Ein französischer Kaiser", "Ein spanischer König"],
+      "correct": 2
+    },
+    {
+      "question": "In welchem Jahr endete der Zweite Weltkrieg?",
+      "options": ["1943", "1944", "1945", "1946"],
+      "correct": 2
+    },
+    {
+      "question": "Welches Land war das erste, das Frauen das Wahlrecht gab?",
+      "options": ["USA", "Großbritannien", "Neuseeland", "Australien"],
+      "correct": 2
+    },
+    {
+      "question": "Wer entdeckte Amerika im Jahr 1492?",
+      "options": ["Vasco da Gama", "Ferdinand Magellan", "Amerigo Vespucci", "Christoph Kolumbus"],
+      "correct": 3
+    },
+    {
+      "question": "Welche Stadt war die erste Hauptstadt der USA?",
+      "options": ["Boston", "Philadelphia", "New York", "Washington D.C."],
+      "correct": 2
+    },
+    {
+      "question": "In welchem Jahr wurde Deutschland wiedervereinigt?",
+      "options": ["1989", "1990", "1991", "1992"],
+      "correct": 1
+    }
+  ]
+}

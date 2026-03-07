@@ -1,0 +1,56 @@
+{
+  "title": "Allgemeinwissen",
+  "description": "Teste dein Allgemeinwissen mit diesen Fragen.",
+  "questions": [
+    {
+      "question": "Was ist die Hauptstadt von Frankreich?",
+      "options": ["London", "Berlin", "Paris", "Madrid"],
+      "correct": 2
+    },
+    {
+      "question": "Welcher Planet ist der größte in unserem Sonnensystem?",
+      "options": ["Saturn", "Jupiter", "Neptun", "Uranus"],
+      "correct": 1
+    },
+    {
+      "question": "In welchem Jahr fand die erste Mondlandung statt?",
+      "options": ["1965", "1967", "1969", "1971"],
+      "correct": 2
+    },
+    {
+      "question": "Wer malte die Mona Lisa?",
+      "options": ["Michelangelo", "Raphael", "Leonardo da Vinci", "Donatello"],
+      "correct": 2
+    },
+    {
+      "question": "Wie viele Kontinente gibt es auf der Erde?",
+      "options": ["5", "6", "7", "8"],
+      "correct": 2
+    },
+    {
+      "question": "Welches Element hat das chemische Symbol 'O'?",
+      "options": ["Gold", "Sauerstoff", "Osmium", "Ozon"],
+      "correct": 1
+    },
+    {
+      "question": "Welcher Ozean ist der größte der Welt?",
+      "options": ["Atlantik", "Indischer Ozean", "Arktischer Ozean", "Pazifik"],
+      "correct": 3
+    },
+    {
+      "question": "Wie viele Saiten hat eine klassische Gitarre?",
+      "options": ["4", "5", "6", "7"],
+      "correct": 2
+    },
+    {
+      "question": "Wer schrieb 'Romeo und Julia'?",
+      "options": ["Charles Dickens", "William Shakespeare", "Jane Austen", "Oscar Wilde"],
+      "correct": 1
+    },
+    {
+      "question": "Welches Land hat die längste Küstenlinie der Welt?",
+      "options": ["Russland", "USA", "Australien", "Kanada"],
+      "correct": 3
+    }
+  ]
+}
