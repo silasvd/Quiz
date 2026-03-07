@@ -70,8 +70,12 @@ const REPO_QUIZZES = [
 
 const OPTION_LETTERS = ['A', 'B', 'C', 'D'];
 
-/** Offsets applied to the correct answer to generate plausible wrong options */
-const MC_OFFSETS = [1, 2, 3, 5, 10, -1, -2, -3, -5, -10];
+/** Precomputed pool of all results from the 1–10 multiplication table (unique, sorted). */
+const TIMES_TABLE_POOL = [...new Set(
+  Array.from({ length: 10 }, (_, a) =>
+    Array.from({ length: 10 }, (_, b) => (a + 1) * (b + 1))
+  ).flat()
+)].sort((a, b) => a - b);
 
 // ──────────────────────────────────────────
 // Application state
@@ -159,18 +163,35 @@ function pickRandom(arr, n) {
 /**
  * Given a numeric answer, generate an array of 4 option strings (3 wrong + 1 correct,
  * shuffled) and return { options, correct } where correct is the index of the right answer.
+ *
+ * Strategy:
+ *  1. Prefer nearby values from the multiplication-table pool as distractors so they
+ *     look plausible to the student (e.g. for 7×8=56: candidates like 54, 63, 48).
+ *  2. Fall back to simple ±offset values for answers outside the table (> 100).
+ *  3. Always guarantee 3 distinct wrong options.
  */
 function generateMCOptions(answer) {
   const correct = Number(answer);
   const candidates = new Set();
 
-  // Nearby offsets produce plausible wrong answers
-  for (const d of MC_OFFSETS) {
+  // Prefer multiplication-table neighbours sorted by proximity to the correct answer
+  const tableNeighbours = TIMES_TABLE_POOL
+    .filter((v) => v !== correct)
+    .sort((a, b) => Math.abs(a - correct) - Math.abs(b - correct));
+
+  for (const v of tableNeighbours) {
+    if (candidates.size >= 3) break;
+    candidates.add(v);
+  }
+
+  // Fallback: plain offsets when the table pool is exhausted (e.g. answer > 100)
+  for (const d of [1, 2, 3, 5, 10, -1, -2, -3, -5, -10]) {
+    if (candidates.size >= 3) break;
     const c = correct + d;
     if (c > 0 && c !== correct) candidates.add(c);
   }
 
-  // Fallback: fill with small positive integers if needed
+  // Final safety net
   for (let i = 1; candidates.size < 3; i++) {
     if (i !== correct) candidates.add(i);
   }
@@ -194,6 +215,8 @@ function normalizeMCQuestions(questions) {
     return q;
   });
 }
+
+function showScreen(name) {
   Object.values(screens).forEach((s) => s.classList.remove('active'));
   screens[name].classList.add('active');
 }
@@ -459,7 +482,7 @@ function renderQuestion() {
   if (state.freeInputMode) {
     // Free text input mode
     optionsList.style.display = 'none';
-    textInputWrap.style.display = 'block';
+    textInputWrap.style.display = 'flex';
     answerInput.value = '';
     answerInput.disabled = false;
     answerInput.classList.remove('correct', 'wrong');
