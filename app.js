@@ -41,6 +41,30 @@ const REPO_QUIZZES = [
     description: 'Grundlagen der Programmiersprache C#',
     icon: '💻',
     file: 'quizzes/csharp.json'
+  },
+  {
+    id: 'mathe-einmaleins',
+    title: 'Kleines Einmaleins',
+    description: 'Alle Multiplikationsaufgaben 1×1 bis 10×10',
+    icon: '✖️',
+    file: 'quizzes/mathe-einmaleins.json',
+    allowFreeInput: true
+  },
+  {
+    id: 'mathe-teilen',
+    title: 'Geteiltaufgaben',
+    description: 'Alle Divisionsaufgaben des kleinen Einmaleins',
+    icon: '➗',
+    file: 'quizzes/mathe-teilen.json',
+    allowFreeInput: true
+  },
+  {
+    id: 'mathe-gemischt',
+    title: 'Gemischte Matheaufgaben',
+    description: 'Multiplikation und Division gemischt',
+    icon: '🔢',
+    file: 'quizzes/mathe-gemischt.json',
+    allowFreeInput: true
   }
 ];
 
@@ -58,7 +82,8 @@ let state = {
   currentIndex: 0,
   correctCount: 0,
   wrongCount: 0,
-  answered: false
+  answered: false,
+  freeInputMode: false       // true = free text input instead of Multiple Choice
 };
 
 // ──────────────────────────────────────────
@@ -79,6 +104,7 @@ const questionCountInput = document.getElementById('question-count');
 const countHint = document.getElementById('count-hint');
 const startBtn = document.getElementById('start-btn');
 const errorBanner = document.getElementById('error-banner');
+const inputModeWrap = document.getElementById('input-mode-wrap');
 
 // Quiz screen
 const quizTitleBar = document.getElementById('quiz-title-bar');
@@ -92,6 +118,9 @@ const feedbackIcon = document.getElementById('feedback-icon');
 const feedbackStrong = document.getElementById('feedback-strong');
 const feedbackCorrectAnswer = document.getElementById('feedback-correct-answer');
 const nextBtn = document.getElementById('next-btn');
+const textInputWrap = document.getElementById('text-input-wrap');
+const answerInput = document.getElementById('answer-input');
+const submitAnswerBtn = document.getElementById('submit-answer-btn');
 
 // Result screen
 const resultEmoji = document.getElementById('result-emoji');
@@ -175,6 +204,9 @@ function selectRepoQuiz(index) {
   hideError();
   updateCountHint();
   startBtn.disabled = false;
+
+  const allowFreeInput = !!REPO_QUIZZES[index].allowFreeInput;
+  inputModeWrap.style.display = allowFreeInput ? 'block' : 'none';
 }
 
 // ──────────────────────────────────────────
@@ -231,6 +263,8 @@ function handleFileLoad(file) {
       hideError();
       updateCountHint();
       startBtn.disabled = false;
+
+      inputModeWrap.style.display = data.allowFreeInput ? 'block' : 'none';
     } catch (err) {
       showError(`Fehler beim Laden der Datei: ${err.message}`);
     }
@@ -245,11 +279,20 @@ function validateQuizData(data) {
   }
   data.questions.forEach((q, i) => {
     if (typeof q.question !== 'string') throw new Error(`Frage ${i + 1}: Kein Fragetext.`);
-    if (!Array.isArray(q.options) || q.options.length !== 4) {
-      throw new Error(`Frage ${i + 1}: Genau 4 Antwortmöglichkeiten erforderlich.`);
+    if (q.answer !== undefined) {
+      // Free-input (or hybrid) question: answer must be a string or number
+      if (typeof q.answer !== 'string' && typeof q.answer !== 'number') {
+        throw new Error(`Frage ${i + 1}: 'answer' muss ein Text oder eine Zahl sein.`);
+      }
     }
-    if (typeof q.correct !== 'number' || q.correct < 0 || q.correct > 3) {
-      throw new Error(`Frage ${i + 1}: 'correct' muss 0–3 sein.`);
+    if (q.options !== undefined || q.answer === undefined) {
+      // Multiple-choice question (pure MC or hybrid with both answer + options)
+      if (!Array.isArray(q.options) || q.options.length !== 4) {
+        throw new Error(`Frage ${i + 1}: Genau 4 Antwortmöglichkeiten erforderlich.`);
+      }
+      if (typeof q.correct !== 'number' || q.correct < 0 || q.correct > 3) {
+        throw new Error(`Frage ${i + 1}: 'correct' muss 0–3 sein.`);
+      }
     }
   });
 }
@@ -326,8 +369,16 @@ async function startQuiz() {
 
     validateQuizData(quizData);
 
+    // Determine input mode from the radio buttons (only visible for allowFreeInput quizzes)
+    const selectedMode = document.querySelector('input[name="input-mode"]:checked');
+    state.freeInputMode = quizData.allowFreeInput
+      ? (selectedMode ? selectedMode.value === 'free' : false)
+      : false;
+
     const count = Math.min(state.questionCount, quizData.questions.length);
-    state.questions = pickRandom(quizData.questions, count);
+    let picked = pickRandom(quizData.questions, count);
+
+    state.questions = picked;
     state.currentIndex = 0;
     state.correctCount = 0;
     state.wrongCount = 0;
@@ -361,14 +412,29 @@ function renderQuestion() {
   progressBar.style.width = `${((current - 1) / total) * 100}%`;
   questionText.textContent = q.question;
 
-  optionsList.innerHTML = '';
-  q.options.forEach((option, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.innerHTML = `<span class="option-letter">${OPTION_LETTERS[i]}</span>${escapeHtml(option)}`;
-    btn.addEventListener('click', () => handleAnswer(i));
-    optionsList.appendChild(btn);
-  });
+  if (state.freeInputMode) {
+    // Free text input mode
+    optionsList.style.display = 'none';
+    textInputWrap.style.display = 'flex';
+    answerInput.value = '';
+    answerInput.disabled = false;
+    answerInput.classList.remove('correct', 'wrong');
+    submitAnswerBtn.disabled = false;
+    // Focus the input so the user can type immediately
+    answerInput.focus();
+  } else {
+    // Multiple Choice mode
+    textInputWrap.style.display = 'none';
+    optionsList.style.display = '';
+    optionsList.innerHTML = '';
+    q.options.forEach((option, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.innerHTML = `<span class="option-letter">${OPTION_LETTERS[i]}</span>${escapeHtml(option)}`;
+      btn.addEventListener('click', () => handleAnswer(i));
+      optionsList.appendChild(btn);
+    });
+  }
 }
 
 function handleAnswer(selectedIndex) {
@@ -416,6 +482,52 @@ function handleAnswer(selectedIndex) {
   nextBtn.textContent = isLast ? 'Auswertung ansehen →' : 'Nächste Frage →';
 }
 
+function handleTextAnswer(inputValue) {
+  if (state.answered) return;
+  state.answered = true;
+
+  const q = state.questions[state.currentIndex];
+  const trimmed = inputValue.trim();
+
+  // Compare numerically when both sides are valid numbers, otherwise case-insensitive string compare
+  const numInput = Number(trimmed);
+  const numAnswer = Number(q.answer);
+  const isCorrect = (!isNaN(numInput) && !isNaN(numAnswer))
+    ? numInput === numAnswer
+    : trimmed.toLowerCase() === String(q.answer).toLowerCase();
+
+  if (isCorrect) {
+    state.correctCount++;
+  } else {
+    state.wrongCount++;
+  }
+
+  // Disable input
+  answerInput.disabled = true;
+  submitAnswerBtn.disabled = true;
+  answerInput.classList.add(isCorrect ? 'correct' : 'wrong');
+
+  // Show feedback
+  feedbackArea.style.display = 'flex';
+  if (isCorrect) {
+    feedbackArea.className = 'feedback-area correct-feedback';
+    feedbackIcon.textContent = '✅';
+    feedbackStrong.textContent = 'Richtig! Gut gemacht!';
+    feedbackCorrectAnswer.textContent = '';
+  } else {
+    feedbackArea.className = 'feedback-area wrong-feedback';
+    feedbackIcon.textContent = '❌';
+    feedbackStrong.textContent = 'Falsch!';
+    feedbackCorrectAnswer.textContent = `Richtige Antwort: ${q.answer}`;
+  }
+
+  // Show next button
+  const nextBtnWrap = document.getElementById('next-btn-wrap');
+  nextBtnWrap.style.display = 'block';
+  const isLast = state.currentIndex === state.questions.length - 1;
+  nextBtn.textContent = isLast ? 'Auswertung ansehen →' : 'Nächste Frage →';
+}
+
 nextBtn.addEventListener('click', () => {
   if (state.currentIndex < state.questions.length - 1) {
     state.currentIndex++;
@@ -423,6 +535,14 @@ nextBtn.addEventListener('click', () => {
   } else {
     showResults();
   }
+});
+
+submitAnswerBtn.addEventListener('click', () => {
+  if (answerInput.value.trim() !== '') handleTextAnswer(answerInput.value);
+});
+
+answerInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && answerInput.value.trim() !== '') handleTextAnswer(answerInput.value);
 });
 
 // ──────────────────────────────────────────
@@ -485,7 +605,9 @@ restartBtn.addEventListener('click', () => {
   }
 
   const count = Math.min(state.questionCount, quizData.questions.length);
-  state.questions = pickRandom(quizData.questions, count);
+  let picked = pickRandom(quizData.questions, count);
+
+  state.questions = picked;
   showScreen('quiz');
   renderQuestion();
 });
