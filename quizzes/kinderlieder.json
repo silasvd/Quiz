@@ -1,0 +1,183 @@
+{
+  "title": "Kinderlieder erraten",
+  "description": "Erkenne das Kinderlied anhand der Melodie!",
+  "type": "melody",
+  "questions": [
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "C4/4 D4/4 E4/4 F4/4 | G4/2 G4/2 | A4/4 A4/4 A4/4 A4/4 | G4/1",
+      "timeSignature": "4/4",
+      "tempo": 120,
+      "options": ["Alle meine Entchen", "Hänschen klein", "Bruder Jakob", "Fuchs du hast die Gans gestohlen"],
+      "correct": 0
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "G4/4 E4/4 E4/2 | F4/4 D4/4 D4/2 | C4/4 D4/4 E4/4 F4/4 | G4/4 G4/4 G4/2",
+      "timeSignature": "4/4",
+      "tempo": 110,
+      "options": ["Summ summ summ", "Hänschen klein", "Alle meine Entchen", "Hoppe hoppe Reiter"],
+      "correct": 1
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "C4/4 D4/4 E4/4 C4/4 | C4/4 D4/4 E4/4 C4/4 | E4/4 F4/4 G4/2 | E4/4 F4/4 G4/2",
+      "timeSignature": "4/4",
+      "tempo": 120,
+      "options": ["Fuchs du hast die Gans gestohlen", "Alle Vögel sind schon da", "Bruder Jakob", "Dornröschen war ein schönes Kind"],
+      "correct": 2
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "G4/2 E4/4 | G4/2 E4/4 | G4/4 F4/4 E4/4 | D4/2.",
+      "timeSignature": "3/4",
+      "tempo": 108,
+      "options": ["Summ summ summ", "Hänschen klein", "Alle meine Entchen", "Kuckuck Kuckuck rufts aus dem Wald"],
+      "correct": 3
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "C4/4 D4/4 E4/4 F4/4 | G4/4 G4/4 E4/2 | F4/4 F4/4 D4/2 | E4/4 E4/4 C4/2",
+      "timeSignature": "4/4",
+      "tempo": 120,
+      "options": ["Fuchs du hast die Gans gestohlen", "Alle meine Entchen", "Bruder Jakob", "Drei Chinesen mit dem Kontrabass"],
+      "correct": 0
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "G4/2 E4/2 | F4/4 F4/4 F4/4 E4/4 | D4/4 D4/4 D4/4 C4/4 | E4/2 C4/2",
+      "timeSignature": "4/4",
+      "tempo": 100,
+      "options": ["Hänschen klein", "Summ summ summ", "Backe backe Kuchen", "Schlaf Kindlein schlaf"],
+      "correct": 1
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "A4/4 A4/4 G4/2 | A4/4 A4/4 G4/2 | F4/4 F4/4 E4/4 E4/4 | D4/2 C4/2",
+      "timeSignature": "4/4",
+      "tempo": 112,
+      "options": ["Hoppe hoppe Reiter", "Laterne Laterne", "Backe backe Kuchen", "Maikäfer flieg"],
+      "correct": 2
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "C4/4 E4/4 G4/4 E4/4 | F4/4 F4/4 E4/2 | D4/4 D4/4 E4/4 E4/4 | D4/2 C4/2",
+      "timeSignature": "4/4",
+      "tempo": 108,
+      "options": ["Ringel Ringel Reihe", "Schneeflöckchen Weißröckchen", "Bruder Jakob", "Hoppe hoppe Reiter"],
+      "correct": 3
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "C5/4 G4/2 | C5/4 G4/2 | E4/4 F4/4 G4/4 | A4/2.",
+      "timeSignature": "3/4",
+      "tempo": 84,
+      "options": ["Schlaf Kindlein schlaf", "Kommt ein Vogel geflogen", "O Tannenbaum", "Laterne Laterne"],
+      "correct": 0
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "C4/4 E4/4 G4/2 | A4/4 G4/4 F4/4 E4/4 | D4/2 E4/2 | C4/1",
+      "timeSignature": "4/4",
+      "tempo": 116,
+      "options": ["Drei Chinesen mit dem Kontrabass", "Alle Vögel sind schon da", "Dornröschen war ein schönes Kind", "Fuchs du hast die Gans gestohlen"],
+      "correct": 1
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "C4/4 C4/4 D4/4 E4/4 | E4/2 F4/4 G4/4 | G4/4 A4/4 G4/4 F4/4 | E4/1",
+      "timeSignature": "4/4",
+      "tempo": 108,
+      "options": ["ABC die Katze lief im Schnee", "Grün grün grün sind alle meine Kleider", "Hänsel und Gretel", "Ringel Ringel Reihe"],
+      "correct": 2
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "C4/4 F4/2 F4/4 | G4/2 A4/4 A4/4 | A4/4 G4/4 A4/4 | G4/2 F4/4",
+      "timeSignature": "3/4",
+      "tempo": 100,
+      "options": ["Schneeflöckchen Weißröckchen", "Schlaf Kindlein schlaf", "Kuckuck Kuckuck rufts aus dem Wald", "O Tannenbaum"],
+      "correct": 3
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "E4/4 E4/4 G4/4 G4/4 | F4/4 F4/4 E4/2 | D4/4 D4/4 F4/4 F4/4 | E4/4 E4/4 D4/2",
+      "timeSignature": "4/4",
+      "tempo": 108,
+      "options": ["Schneeflöckchen Weißröckchen", "Es tanzt ein Bi-Ba-Butzemann", "Grün grün grün sind alle meine Kleider", "Laterne Laterne"],
+      "correct": 0
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "C4/4 E4/4 G4/4 E4/4 | C4/4 E4/4 G4/4 E4/4 | D4/4 F4/4 A4/4 F4/4 | G4/1",
+      "timeSignature": "4/4",
+      "tempo": 132,
+      "options": ["Drei Chinesen mit dem Kontrabass", "Es tanzt ein Bi-Ba-Butzemann", "Hoppe hoppe Reiter", "Alle meine Entchen"],
+      "correct": 1
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "G4/4 G4/4 A4/4 G4/4 | F4/4 E4/4 D4/2 | E4/4 E4/4 F4/4 E4/4 | D4/4 C4/4 C4/2",
+      "timeSignature": "4/4",
+      "tempo": 108,
+      "options": ["Hänsel und Gretel", "Backe backe Kuchen", "Dornröschen war ein schönes Kind", "Kommt ein Vogel geflogen"],
+      "correct": 2
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "C4/4 C4/4 D4/4 E4/4 | E4/4 D4/4 C4/4 E4/4 | D4/4 D4/4 C4/4 D4/4 | E4/4 C4/4 C4/2",
+      "timeSignature": "4/4",
+      "tempo": 120,
+      "options": ["Fuchs du hast die Gans gestohlen", "Ringel Ringel Reihe", "Maikäfer flieg", "Drei Chinesen mit dem Kontrabass"],
+      "correct": 3
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "C4/4 D4/4 E4/4 R/4 | F4/4 G4/4 A4/4 R/4 | G4/4 F4/4 E4/4 D4/4 | C4/1",
+      "timeSignature": "4/4",
+      "tempo": 116,
+      "options": ["ABC die Katze lief im Schnee", "Alle meine Entchen", "Summ summ summ", "Es tanzt ein Bi-Ba-Butzemann"],
+      "correct": 0
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "A4/4 F4/2 | A4/4 F4/2 | G4/4 G4/4 G4/4 | A4/2.",
+      "timeSignature": "3/4",
+      "tempo": 108,
+      "options": ["Schlaf Kindlein schlaf", "Laterne Laterne", "O Tannenbaum", "Kuckuck Kuckuck rufts aus dem Wald"],
+      "correct": 1
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "G4/4 G4/4 E4/4 E4/4 | F4/4 F4/4 D4/2 | E4/4 F4/4 G4/4 A4/4 | G4/4 F4/4 E4/2",
+      "timeSignature": "4/4",
+      "tempo": 116,
+      "options": ["Hänschen klein", "Dornröschen war ein schönes Kind", "Grün grün grün sind alle meine Kleider", "Hänsel und Gretel"],
+      "correct": 2
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "E4/4 E4/4 F4/4 G4/4 | G4/4 F4/4 E4/4 D4/4 | C4/4 C4/4 D4/4 E4/4 | E4/4 D4/4 C4/2",
+      "timeSignature": "4/4",
+      "tempo": 108,
+      "options": ["Schneeflöckchen Weißröckchen", "Alle Vögel sind schon da", "Summ summ summ", "Ringel Ringel Reihe"],
+      "correct": 3
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "E4/4 D4/4 C4/2 | E4/4 D4/4 C4/2 | C4/4 D4/4 E4/4 F4/4 | G4/1",
+      "timeSignature": "4/4",
+      "tempo": 100,
+      "options": ["Maikäfer flieg", "ABC die Katze lief im Schnee", "Backe backe Kuchen", "Hoppe hoppe Reiter"],
+      "correct": 0
+    },
+    {
+      "question": "Welches Kinderlied ist das?",
+      "melody": "E4/4 E4/4 F4/4 | G4/2 A4/4 | G4/4 F4/4 E4/4 | D4/2.",
+      "timeSignature": "3/4",
+      "tempo": 100,
+      "options": ["Schlaf Kindlein schlaf", "Kommt ein Vogel geflogen", "Laterne Laterne", "Maikäfer flieg"],
+      "correct": 1
+    }
+  ]
+}
