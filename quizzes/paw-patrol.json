@@ -107,7 +107,7 @@
       "options": [
         "Adventure Base",
         "Puppy Station",
-        "Lookout Tower",
+        "Zentrale",
         "The Watchtower"
       ],
       "correct": 2
@@ -121,6 +121,1006 @@
         "Zuma"
       ],
       "correct": 0
+    },
+    {
+      "question": "Welche Hunderasse ist Chase?",
+      "options": [
+        "Dalmatiner",
+        "Deutscher Schäferhund",
+        "Labrador Retriever",
+        "Husky"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welche Hunderasse ist Marshall?",
+      "options": [
+        "Labrador",
+        "Englische Bulldogge",
+        "Dalmatiner",
+        "Schäferhund"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welche Hunderasse ist Rubble?",
+      "options": [
+        "Mops",
+        "Englische Bulldogge",
+        "Französische Bulldogge",
+        "Boston Terrier"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welche Hunderasse ist Zuma?",
+      "options": [
+        "Golden Retriever",
+        "Labrador Retriever",
+        "Boxer",
+        "Beagle"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welche Hunderasse ist Rocky?",
+      "options": [
+        "Terrier",
+        "Mischlingswelpe",
+        "Labrador",
+        "Dackel"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welche Hunderasse ist Everest?",
+      "options": [
+        "Samojede",
+        "Alaskan Malamute",
+        "Husky",
+        "Neufundländer"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welche Hunderasse ist Tracker?",
+      "options": [
+        "Beagle",
+        "Dackel",
+        "Chihuahua",
+        "Jack Russell Terrier"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welche Hunderasse ist Skye?",
+      "options": [
+        "Pudel",
+        "Cockapoo",
+        "Malteser",
+        "Shih Tzu"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wie heißt das Huhn von Bürgermeisterin Gutherz?",
+      "options": [
+        "Henrietta",
+        "Clucky",
+        "Chickaletta",
+        "Henny"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was für ein Tier ist Chickaletta?",
+      "options": [
+        "Eine Katze",
+        "Ein Hase",
+        "Ein Huhn",
+        "Ein Papagei"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Wie heißt der Gegner der Paw Patrol, der immer versucht besser als Adventure Bay zu sein?",
+      "options": [
+        "Bürgermeister Böse",
+        "Bürgermeister Besserwisser",
+        "Bürgermeister Stinkefuss",
+        "Bürgermeister Düster"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welches Fahrzeug fährt Zuma?",
+      "options": [
+        "Ein Motorboot",
+        "Ein Hovercraft",
+        "Ein U-Boot",
+        "Ein Wasserflugzeug"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Womit ruft Ryder die Hunde zur Mission?",
+      "options": [
+        "Mit einem Telefon",
+        "Mit dem Pup Pad",
+        "Mit einer Sirene",
+        "Mit einem Pfiff"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was mag Rocky gar nicht?",
+      "options": [
+        "Rennen",
+        "Nass werden",
+        "Graben",
+        "Klettern"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Bei wem wohnt Everest?",
+      "options": [
+        "Bei Alex",
+        "Bei Käpten Turbot",
+        "Bei Jake",
+        "Bei Bäuerin Yumi"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was ist Jakes Hobby?",
+      "options": [
+        "Surfen",
+        "Klettern",
+        "Snowboarden",
+        "Tauchen"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was macht Herr Porter von Beruf?",
+      "options": [
+        "Er ist Polizist",
+        "Er betreibt ein Restaurant",
+        "Er ist Arzt",
+        "Er ist Lehrer"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wer ist Alex?",
+      "options": [
+        "Ryders Bruder",
+        "Herr Porters Enkel",
+        "Jakes Neffe",
+        "Chases bester Freund"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was ist Käpten Turbots Spezialgebiet?",
+      "options": [
+        "Astronomie",
+        "Archäologie",
+        "Meeresforschung",
+        "Meteorologie"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Wie heißt Käpten Turbots Walross-Freund?",
+      "options": [
+        "Walter",
+        "Willy",
+        "Wally",
+        "Waldo"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was trägt jeder Hund als persönliches Erkennungszeichen auf der Brust?",
+      "options": [
+        "Einen Stern",
+        "Einen Pup-Tag (Hundemarke)",
+        "Ein Namensschild",
+        "Eine Pfeife"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welche Farbe hat Chases Polizeiauto?",
+      "options": [
+        "Schwarz-Weiß",
+        "Dunkelblau",
+        "Rot",
+        "Grün"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welche Farbe hat Skyes Helikopter?",
+      "options": [
+        "Blau",
+        "Gelb",
+        "Pink",
+        "Orange"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was hat Trackers Jeep als besonderes Werkzeug?",
+      "options": [
+        "Einen Wasserwerfer",
+        "Einen Kran",
+        "Einen Schneepflug",
+        "Eine Wärmebildkamera"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In welcher Sprache spricht Tracker manchmal?",
+      "options": [
+        "Französisch",
+        "Spanisch",
+        "Portugiesisch",
+        "Italienisch"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wie heißt das große Schiff der Paw Patrol?",
+      "options": [
+        "Sea Explorer",
+        "Ocean Patroller",
+        "Sea Patroller",
+        "Bay Cruiser"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Wie heißt das fliegende Luftschiff der Paw Patrol?",
+      "options": [
+        "Sky Patroller",
+        "Air Cruiser",
+        "Air Patroller",
+        "Cloud Runner"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welche beiden Hunde sind weiblich?",
+      "options": [
+        "Chase und Skye",
+        "Everest und Skye",
+        "Marshall und Skye",
+        "Rubble und Everest"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wer führt den Air Patroller?",
+      "options": [
+        "Chase",
+        "Ryder",
+        "Skye",
+        "Marshall"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was ist Marshalls zweite Spezialität neben der Feuerwehr?",
+      "options": [
+        "Polizeiarbeit",
+        "Erste Hilfe und Rettungsmedizin",
+        "Recycling",
+        "Unterwasserrettung"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welcher Hund war NICHT Teil des ursprünglichen Sechs-Hunde-Teams?",
+      "options": [
+        "Rubble",
+        "Zuma",
+        "Tracker",
+        "Rocky"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welcher Hund kam als erstes neues Mitglied nach den Original 6 hinzu?",
+      "options": [
+        "Tracker",
+        "Everest",
+        "Rocky",
+        "Marshall"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wie bewegen sich die Hunde in der Zentrale von oben nach unten?",
+      "options": [
+        "Mit dem Aufzug",
+        "Per Treppe",
+        "Durch eine Feuerwehrstange",
+        "Durch einen Schacht"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was befindet sich auf der Spitze der Zentrale?",
+      "options": [
+        "Ryders Schlafzimmer",
+        "Ein Aussichtspunkt mit Teleskop",
+        "Eine Startrampe",
+        "Ein Schwimmbecken"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was ist in Chases Pup Pack hauptsächlich enthalten?",
+      "options": [
+        "Wasser und Eimer",
+        "Netz und Pylone",
+        "Seile und Haken",
+        "Schaufel und Bagger"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welche Farbe hat Rockys Fahrzeug?",
+      "options": [
+        "Blau",
+        "Gelb",
+        "Grün",
+        "Orange"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welche Farbe hat Rubbles Bagger?",
+      "options": [
+        "Blau",
+        "Rot",
+        "Grün",
+        "Gelb-Orange"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "Was ist Marshalls bekannte Schwäche?",
+      "options": [
+        "Er ist zu langsam",
+        "Er ist tollpatschig und stolpert oft",
+        "Er ist zu ängstlich",
+        "Er vergisst alles"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welcher Hund ist für seine Tollpatschigkeit bekannt?",
+      "options": [
+        "Chase",
+        "Rubble",
+        "Marshall",
+        "Zuma"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Wer kümmert sich um verletzte Tiere und Menschen mit medizinischer Ausrüstung?",
+      "options": [
+        "Chase",
+        "Ryder",
+        "Marshall",
+        "Zuma"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welcher Hund verfolgt Spuren mit seiner Nase?",
+      "options": [
+        "Rubble",
+        "Marshall",
+        "Chase",
+        "Everest"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was ist in Rockys Pup Pack hauptsächlich enthalten?",
+      "options": [
+        "Wasser und Eimer",
+        "Verschiedene Werkzeuge und ein Greifarm",
+        "Seile und Haken",
+        "Netze und Lampen"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In welcher Staffel kam Tracker zur Paw Patrol?",
+      "options": [
+        "Staffel 1",
+        "Staffel 2",
+        "Staffel 3",
+        "Staffel 4"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In welcher Staffel kam Everest zur Paw Patrol?",
+      "options": [
+        "Staffel 1",
+        "Staffel 2",
+        "Staffel 3",
+        "Staffel 4"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was baut Rocky aus alten Teilen und Müll?",
+      "options": [
+        "Nichts, er lässt es liegen",
+        "Nützliche Werkzeuge und Gadgets",
+        "Häuser und Gebäude",
+        "Neue Fahrzeuge"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wie heißt Käpten Turbots Cousine?",
+      "options": [
+        "Francoise",
+        "Michelle",
+        "Sophie",
+        "Anne"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "Wie heißt die freche Hündin der Prinzessin aus Bellburg?",
+      "options": [
+        "Cali",
+        "Bella",
+        "Sweetie",
+        "Lady"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was versucht Sweetie immer wieder?",
+      "options": [
+        "Mit den Paw Patrol Hunden zu spielen",
+        "Den Thron des Königreichs zu stehlen",
+        "Freunde zu finden",
+        "Essen zu stehlen"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Womit ahmt Bürgermeister Besserwisser die Paw Patrol nach?",
+      "options": [
+        "Mit Roboterhunden",
+        "Mit einer Truppe aus Katzen",
+        "Mit Hilfstruppen aus seiner Stadt",
+        "Mit ferngesteuerten Fahrzeugen"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was ist das Ziel von Bürgermeister Besserwisser?",
+      "options": [
+        "Die Paw Patrol zu vernichten",
+        "Sehr reich zu werden",
+        "Adventure Bay zu übertrumpfen und der beste Bürgermeister zu werden",
+        "Die Welt zu retten"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welches Tier hat Bürgermeister Besserwisser immer bei sich?",
+      "options": [
+        "Hunde",
+        "Vögel",
+        "Katzen",
+        "Meerschweinchen"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Wer bewirtschaftet den Bauernhof in Adventure Bay?",
+      "options": [
+        "Herr Porter",
+        "Bäuerin Yumi",
+        "Käpten Turbot",
+        "Jake"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wie heißt Ryders persönliches Fahrzeug?",
+      "options": [
+        "Motorrad",
+        "Quad",
+        "ATV",
+        "Dirt Bike"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was ist das Besondere an Marshalls Feuerwehrauto?",
+      "options": [
+        "Es kann fliegen",
+        "Es hat eine ausfahrbare Leiter",
+        "Es kann sich unsichtbar machen",
+        "Es fährt alleine"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was kann Zumas Hovercraft Besonderes (außer über Wasser fahren)?",
+      "options": [
+        "Es kann fliegen",
+        "Es kann tauchen",
+        "Es kann Schnee räumen",
+        "Es kann Feuer löschen"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was ist Everests Spezialfahrzeug?",
+      "options": [
+        "Ein Jeep",
+        "Ein Motorrad",
+        "Ein Schneepflug-Fahrzeug",
+        "Ein Hubschrauber"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was hat Skyes Schutzbrille im Einsatz?",
+      "options": [
+        "Nichts Besonderes",
+        "Eine eingebaute Zoom-Kamera",
+        "Nachtsicht",
+        "Sonnenschutz"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was ist in Everests Pup Pack?",
+      "options": [
+        "Tauchausrüstung",
+        "Schneeausrüstung und Werkzeuge für Kälte und Eis",
+        "Seil und Kletterausrüstung",
+        "Netz und Spaten"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wofür ist Jake bekannt?",
+      "options": [
+        "Er ist Feuerwehrmann",
+        "Er ist Snowboarder und Bergliebhaber",
+        "Er ist Wissenschaftler",
+        "Er ist Bauer"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was ruft Chase oft, wenn er auf Verbrecherjagd geht?",
+      "options": [
+        "Wuff!",
+        "Auf die Pfoten!",
+        "Chase ist auf dem Fall!",
+        "Polizei, stehen bleiben!"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welcher Hund ist bei Schnee- und Bergrettungen unverzichtbar?",
+      "options": [
+        "Zuma",
+        "Chase",
+        "Everest",
+        "Marshall"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was macht Skye aus der Luft bei schwierigen Einsätzen?",
+      "options": [
+        "Sie löscht Feuer",
+        "Sie beobachtet und liefert Informationen per Kamera",
+        "Sie transportiert Pakete",
+        "Sie schießt Netze"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wie alt ist Ryder ungefähr?",
+      "options": [
+        "6 Jahre",
+        "8 Jahre",
+        "10 Jahre",
+        "14 Jahre"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Werden Ryders Eltern in der Serie gezeigt?",
+      "options": [
+        "Ja, regelmäßig",
+        "Ja, manchmal",
+        "Nein, sie werden nie gezeigt",
+        "Er wohnt bei seinen Großeltern"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was macht Ryder besonders für einen Jungen seines Alters?",
+      "options": [
+        "Er ist Schulbester",
+        "Er leitet die Paw Patrol und ist technisch sehr begabt",
+        "Er ist Sportchampion",
+        "Er ist sehr reich"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wie kommunizieren Ryder und die Hunde im Einsatz miteinander?",
+      "options": [
+        "Durch Bellen",
+        "Über ihre Pup-Tags und eingebaute Kommunikationsgeräte",
+        "Durch Winken",
+        "Durch Rauchzeichen"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was befindet sich alles in der Zentrale?",
+      "options": [
+        "Nur eine Garage",
+        "Ryders Zimmer, Kontrollraum, Garage und mehr",
+        "Nur Schlafplätze für die Hunde",
+        "Nur einen Kontrollraum"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wer hat die Fahrzeuge der Paw Patrol entworfen und gebaut?",
+      "options": [
+        "Herr Porter",
+        "Ryder",
+        "Rocky",
+        "Käpten Turbot"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was heißt \"Paw\" auf Deutsch?",
+      "options": [
+        "Hund",
+        "Pfote",
+        "Kralle",
+        "Fell"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welche Farbe assoziiert man mit Everests Farbschema?",
+      "options": [
+        "Gelb",
+        "Rot",
+        "Grün/Türkis",
+        "Orange"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was kann Marshalls Fahrzeug außer als Feuerwehrauto noch?",
+      "options": [
+        "Als Flugzeug dienen",
+        "Als Krankenwagen mit medizinischer Ausrüstung dienen",
+        "Als Taucherboot dienen",
+        "Als Bagger dienen"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welches Fahrzeug kann sowohl auf dem Wasser als auch auf dem Land fahren?",
+      "options": [
+        "Chases Polizeiauto",
+        "Zumas Hovercraft",
+        "Marshalls Feuerwehrauto",
+        "Rubbles Bagger"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was versteht man unter dem Begriff \"Pup Pack\"?",
+      "options": [
+        "Das Fahrzeug der Hunde",
+        "Der Rucksack mit Spezialwerkzeug jedes Hundes",
+        "Die Hundehütte",
+        "Das Futter der Hunde"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welcher Hund repariert lieber alte Sachen als neue zu kaufen?",
+      "options": [
+        "Everest",
+        "Chase",
+        "Marshall",
+        "Rocky"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "Was sind Pup-Tags?",
+      "options": [
+        "Die Fahrzeuge der Hunde",
+        "Die Hundemarken mit dem Erkennungszeichen jedes Hundes",
+        "Die Helme der Hunde",
+        "Die Rucksäcke der Hunde"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was ist das Besondere an Sweeties Charakter?",
+      "options": [
+        "Sie ist sehr lieb und hilfsbereit",
+        "Sie ist hinterlistig und versucht Macht zu bekommen",
+        "Sie ist das bravste Tier in Bellburg",
+        "Sie hilft der Paw Patrol"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welcher Hund ist Experte für Unterwasserrettung?",
+      "options": [
+        "Rocky",
+        "Zuma",
+        "Chase",
+        "Everest"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wo leben die Paw Patrol Hunde, wenn nicht im Einsatz?",
+      "options": [
+        "In der Zentrale",
+        "In ihren eigenen Pup Houses (Hundehütten)",
+        "Bei Ryder zu Hause",
+        "In der Stadt"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welches Spezialfahrzeug nutzt die Paw Patrol für Bergmissionen?",
+      "options": [
+        "Den Air Patroller",
+        "Everests Schneepflug-Fahrzeug",
+        "Zumas Hovercraft",
+        "Trackers Jeep"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welchen Ruf hat die Paw Patrol in Adventure Bay?",
+      "options": [
+        "Sie werden gefürchtet",
+        "Sie sind die Retter und Helden der Stadt",
+        "Sie sind weitgehend unbekannt",
+        "Sie machen oft Probleme"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was ist das Motto der Paw Patrol?",
+      "options": [
+        "Wir sind die Besten!",
+        "Kein Job ist zu groß, keine Pfote zu klein!",
+        "Gemeinsam sind wir stark!",
+        "Keine Angst vor nichts!"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was passiert, wenn Ryders Pup Pad einen Hund alarmiert?",
+      "options": [
+        "Per E-Mail wird er informiert",
+        "Sein Pup-Tag leuchtet auf und er wird zur Mission gerufen",
+        "Per Postkarte wird er informiert",
+        "Andere Hunde bellen ihn an"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was schreit Marshall oft, wenn er die Feuerwehrstange hinunterkommt?",
+      "options": [
+        "Er kommt immer ruhig runter",
+        "Er ruft \"Aaah!\" wegen seiner Tollpatschigkeit",
+        "Er singt dabei",
+        "Er sagt gar nichts"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welcher Hund navigiert am besten durch Dschungel und unwegsames Gelände?",
+      "options": [
+        "Rubble",
+        "Everest",
+        "Tracker",
+        "Rocky"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was ist Trackers besondere Fähigkeit als Chihuahua?",
+      "options": [
+        "Er hört besonders gut und nimmt Hilferufe aus großer Entfernung wahr",
+        "Er kann besonders schnell laufen",
+        "Er schläft besonders leicht",
+        "Er kann Gedanken hören"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "Wofür ist Rocky bekannt – und was hasst er dabei?",
+      "options": [
+        "Er schläft gern, hasst aber laute Geräusche",
+        "Er recycelt und repariert Dinge, hasst aber nass zu werden",
+        "Er frisst viel, hasst aber Gemüse",
+        "Er ist der Schnellste, hasst aber Rennen"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wie nennt man den Rucksack der Hunde mit ihren Spezialwerkzeugen?",
+      "options": [
+        "Hunde-Rucksack",
+        "Pup Pack",
+        "Tool Box",
+        "Helferpack"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welcher Hund hilft Ryder meistens beim Suchen und Aufspüren von Personen?",
+      "options": [
+        "Rubble",
+        "Marshall",
+        "Chase",
+        "Zuma"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Womit hilft Skye aus der Luft bei schwierigen Sucheinsätzen?",
+      "options": [
+        "Mit einer Wasserkanone",
+        "Mit ihrer Kamera und Beobachtungsmöglichkeit",
+        "Mit einem Magneten",
+        "Mit einem Seil"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welcher Hund ist am besten für Einsätze in unwegsamem Gelände geeignet?",
+      "options": [
+        "Rocky",
+        "Everest",
+        "Tracker",
+        "Zuma"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Wie heißt der Berg, auf dem Jake und Everest leben?",
+      "options": [
+        "Berggipfel",
+        "Jakes Berg",
+        "Schneegebirge",
+        "Everest-Gipfel"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was macht Chase mit seinem Polizei-Megafon?",
+      "options": [
+        "Er macht Musik",
+        "Er gibt Warnungen und Anweisungen durch",
+        "Er ruft andere Hunde herbei",
+        "Er singt damit"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Welche Farbe hat Zumas Uniform?",
+      "options": [
+        "Blau",
+        "Gelb",
+        "Orange",
+        "Grün"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welche Farbe hat Marshalls Uniform und Helm?",
+      "options": [
+        "Blau",
+        "Gelb",
+        "Rot",
+        "Grün"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Welcher Hund hilft meistens bei Strand- und Meeresrettungen?",
+      "options": [
+        "Chase",
+        "Rocky",
+        "Zuma",
+        "Skye"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was macht Rubble gerne in seiner Freizeit?",
+      "options": [
+        "Schwimmen",
+        "Fernsehen schauen und essen",
+        "Sport treiben",
+        "Lesen"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Was ist das Besondere an Rubble als Hund im Team?",
+      "options": [
+        "Er ist ein sehr schneller Läufer",
+        "Er ist der einzige Englische Bulldogge im Team und liebt sein Essen",
+        "Er ist sehr ängstlich",
+        "Er fliegt gerne"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Wie heißt die Fahrzeug-Garage der Paw Patrol in ihrer Basis?",
+      "options": [
+        "Das Fahrzeugdepot",
+        "Das Pup-House",
+        "Die Zentrale",
+        "Die Werkstatt"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "Wer hat die Paw Patrol gegründet?",
+      "options": [
+        "Bürgermeisterin Gutherz",
+        "Chase",
+        "Ryder",
+        "Marshall"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Was macht die Paw Patrol so besonders als Rettungsteam?",
+      "options": [
+        "Sie haben die meisten Fahrzeuge",
+        "Jeder Hund hat eine einzigartige Spezialität und gemeinsam können sie jeden Auftrag lösen",
+        "Sie sind die Stärksten",
+        "Sie haben die modernsten Waffen"
+      ],
+      "correct": 1
     }
   ]
 }
