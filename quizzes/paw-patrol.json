@@ -107,7 +107,7 @@
       "options": [
         "Adventure Base",
         "Puppy Station",
-        "Lookout Tower",
+        "Zentrale",
         "The Watchtower"
       ],
       "correct": 2
@@ -226,7 +226,7 @@
       "question": "Wie heißt der Gegner der Paw Patrol, der immer versucht besser als Adventure Bay zu sein?",
       "options": [
         "Bürgermeister Böse",
-        "Bürgermeister Kläffer",
+        "Bürgermeister Besserwisser",
         "Bürgermeister Stinkefuss",
         "Bürgermeister Düster"
       ],
@@ -443,7 +443,7 @@
       "correct": 1
     },
     {
-      "question": "Wie bewegen sich die Hunde im Lookout von oben nach unten?",
+      "question": "Wie bewegen sich die Hunde in der Zentrale von oben nach unten?",
       "options": [
         "Mit dem Aufzug",
         "Per Treppe",
@@ -453,7 +453,7 @@
       "correct": 2
     },
     {
-      "question": "Was befindet sich auf der Spitze des Lookouts?",
+      "question": "Was befindet sich auf der Spitze der Zentrale?",
       "options": [
         "Ryders Schlafzimmer",
         "Ein Aussichtspunkt mit Teleskop",
@@ -603,7 +603,7 @@
       "correct": 1
     },
     {
-      "question": "Womit ahmt Bürgermeister Kläffer die Paw Patrol nach?",
+      "question": "Womit ahmt Bürgermeister Besserwisser die Paw Patrol nach?",
       "options": [
         "Mit Roboterhunden",
         "Mit einer Truppe aus Katzen",
@@ -613,7 +613,7 @@
       "correct": 1
     },
     {
-      "question": "Was ist das Ziel von Bürgermeister Kläffer?",
+      "question": "Was ist das Ziel von Bürgermeister Besserwisser?",
       "options": [
         "Die Paw Patrol zu vernichten",
         "Sehr reich zu werden",
@@ -623,7 +623,7 @@
       "correct": 2
     },
     {
-      "question": "Welches Tier hat Bürgermeister Kläffer immer bei sich?",
+      "question": "Welches Tier hat Bürgermeister Besserwisser immer bei sich?",
       "options": [
         "Hunde",
         "Vögel",
@@ -783,7 +783,7 @@
       "correct": 1
     },
     {
-      "question": "Was befindet sich alles im Lookout?",
+      "question": "Was befindet sich alles in der Zentrale?",
       "options": [
         "Nur eine Garage",
         "Ryders Zimmer, Kontrollraum, Garage und mehr",
@@ -895,7 +895,7 @@
     {
       "question": "Wo leben die Paw Patrol Hunde, wenn nicht im Einsatz?",
       "options": [
-        "Im Lookout-Turm",
+        "In der Zentrale",
         "In ihren eigenen Pup Houses (Hundehütten)",
         "Bei Ryder zu Hause",
         "In der Stadt"
@@ -926,7 +926,7 @@
       "question": "Was ist das Motto der Paw Patrol?",
       "options": [
         "Wir sind die Besten!",
-        "Kein Job ist zu groß, kein Welpe zu klein!",
+        "Kein Job ist zu groß, keine Pfote zu klein!",
         "Gemeinsam sind wir stark!",
         "Keine Angst vor nichts!"
       ],
@@ -1093,11 +1093,11 @@
       "correct": 1
     },
     {
-      "question": "Wie heißt die Garage und Basis der Paw Patrol im Lookout?",
+      "question": "Wie heißt die Fahrzeug-Garage der Paw Patrol in ihrer Basis?",
       "options": [
-        "Die Fahrzeugdepot im Lookout",
-        "Das Pup-House",
         "Das Fahrzeugdepot",
+        "Das Pup-House",
+        "Die Zentrale",
         "Die Werkstatt"
       ],
       "correct": 0
